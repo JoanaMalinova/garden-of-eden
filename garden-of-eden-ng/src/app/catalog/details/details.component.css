@@ -1,0 +1,34 @@
+.details-wrapper {
+    background-color: gainsboro;
+    color: black;
+    font-size: 22px;
+    display: flex;
+    gap: 50px;
+    justify-content: space-around;
+    padding: 40px 200px;
+}
+
+.details-wrapper .details-info-holder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.details-wrapper hr {
+    width: 80%;
+}
+
+.details-wrapper .name {
+    font-size: 40px;
+}
+
+.details-wrapper .buttons {
+    display: flex;
+    gap: 50px;
+    align-items: center;
+}
+
+.details-wrapper hr {
+    color: black;
+}
