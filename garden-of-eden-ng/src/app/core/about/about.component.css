@@ -1,0 +1,30 @@
+.about-us {
+    background-color: gainsboro;
+    color: black;
+    padding: 20px 200px 60px 200px;
+    font-size: 20px;
+    display: flex;
+    gap: 16px;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.about-us h1 {
+    text-align: center;
+}
+
+.about-us article {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+.about-us article p {
+    text-indent: 20px;
+    text-align: justify;
+    line-height: 1.8;
+}
+
+.about-us img {
+    max-width: 30vw;
+}

@@ -1,0 +1,83 @@
+div.pic-wrapper.home {
+    background-image: url("https://313.bg/image/catalog/blog/313-statiq-vutreshna2.jpg");
+}
+
+div.heading-wrapper {
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+div.heading-wrapper h1 {
+    font-size: 80px;
+    font-family: "Parisienne";
+    font-style: normal;
+}
+
+div.heading-wrapper h2 {
+    font-size: 30px;
+
+}
+
+div.heading-wrapper ul {
+    padding-left: 40px;
+}
+
+div.heading-wrapper li {
+    font-size: 40px;
+    font-family: "Parisienne";
+    font-style: normal;
+}
+
+div.heading-wrapper .catalog-anchor {
+    text-decoration: underline;
+    font-weight: 900;
+    font-size: 38px;
+
+}
+
+/* ---------------------MOST VIEWED----------------- */
+
+
+.most-recent {
+    background-color: gainsboro;
+    width: 100%;
+    color: black;
+}
+
+.most-recent h2 {
+    text-align: center;
+    font-size: 40px;
+}
+
+.card-wrapper {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.most-recent .img-holder {
+    border-radius: 50%;
+    background-color: white;
+    width: 20vw;
+    aspect-ratio: 1 /1;
+    object-fit: cover;
+    overflow: hidden;
+    margin: 20px 0 50px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.most-recent h3 {
+    font-size: 20px;
+}
