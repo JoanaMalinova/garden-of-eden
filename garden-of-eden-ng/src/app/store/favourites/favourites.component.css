@@ -1,0 +1,63 @@
+.like-wrapper h1 {
+    color: black;
+    text-align: center;
+    font-size: 40px;
+    font-weight: 400;
+}
+
+.catalog-wrapper {
+    padding: 20px 200px 100px 200px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 25px;
+    color: black;
+}
+
+.catalog-card {
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+}
+
+.catalog-card section {
+    display: flex;
+    flex-direction: column;
+    height: 32%;
+    justify-content: space-between;
+}
+
+.catalog-img-holder {
+    height: 68%;
+}
+
+.catalog-img-holder img {
+    object-fit: contain;
+}
+
+.plant-name {
+    font-size: 32px;
+}
+
+.plant-price {
+    font-size: 22px;
+    font-weight: 500;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.thumbnail {
+    top: -50px;
+    left: -35px;
+    display: block;
+    z-index: 999;
+    cursor: pointer;
+    transition-property: all;
+    transition-duration: 0.2s;
+    transition-timing-function: ease;
+}
+
+.thumbnail:hover {
+    transform: scale(1.2);
+
+}
