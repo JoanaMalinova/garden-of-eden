@@ -1,1 +1,23 @@
-<p>register works!</p>
+<div class="pic-wrapper register">
+    <fieldset class="form-wrapper">
+        <legend>Register</legend>
+        <form method="POST">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username">
+
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email">
+
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password">
+
+            <label for="repeat-password">Repeat password</label>
+            <input type="password" name="repeat-password" id="repeat-password">
+
+            <button type="submit">Sign up</button>
+
+            <p>Already registered?
+                <a href="/login" class="underlined bold">Sign in</a>
+            </p>
+    </fieldset>
+</div>
