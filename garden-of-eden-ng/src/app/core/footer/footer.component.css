@@ -1,0 +1,53 @@
+footer {
+    margin-top: auto;
+}
+
+
+/* ------------------Contacts--------------- */
+
+.upper-wrapper {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    column-gap: 30px;
+}
+
+.contacts p {
+    text-align: center;
+    padding-top: 8px;
+}
+
+.contacts ul {
+    display: flex;
+    justify-content: space-around;
+
+}
+
+.contacts .phone-contacts p {
+    text-align: left;
+}
+
+.contacts .media-contacts {
+    gap: 18px;
+}
+
+.about p {
+    padding-top: 8px;
+}
+
+.about .more {
+    font-style: italic;
+    text-decoration: underline;
+    font-weight: 600;
+}
+
+.contact-heading {
+    font-weight: 600;
+}
+
+/* -----------All rights reserved---------- */
+
+.lower-wrapper p {
+    text-align: center;
+    padding: 30px;
+    font-weight: 600;
+}

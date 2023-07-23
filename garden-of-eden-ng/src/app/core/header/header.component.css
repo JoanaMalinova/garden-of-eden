@@ -1,0 +1,80 @@
+header a {
+    font-family: "Parisienne";
+    font-style: normal;
+}
+
+header ul a:hover {
+    color: rgb(53, 54, 54, 0.7);
+}
+
+header {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    position: sticky;
+    top: 0px;
+    background-color: white;
+    z-index: 5;
+}
+
+header .navigation ul {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+}
+
+header .navigation .heart {
+    padding-top: 20px;
+}
+
+header .navigation .cart {
+    padding-top: 15px;
+    padding-right: 20px;
+}
+
+.logo p a {
+    font-size: 60px;
+    margin-right: auto;
+}
+
+header a {
+    font-size: 40px;
+}
+
+header .search {
+    margin-left: auto;
+}
+
+header .search input {
+    border-radius: 16px;
+    font-size: 20px;
+    text-indent: 8px;
+    overflow-x: hidden;
+    word-wrap: break-word;
+    outline: none;
+    border: 1.5px solid black;
+}
+
+header .search input:focus,
+header .search input:hover {
+    border: 2px solid black;
+}
+
+header .shopping_cart {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-right: 40px;
+}
+
+header .shopping_cart img {
+    height: 44px;
+}
+
+.underlined {
+    text-decoration: underline;
+}
+
+.bold {
+    font-weight: 700;
+}
