@@ -1,0 +1,39 @@
+/* ---------Register-------- */
+div.pic-wrapper.register {
+    background-image: url("https://www.marthastewart.com/thmb/9XMbii05M2OQUd2vZj7pI7GZBCQ=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/starting-flower-garden-getty-0323-2000-18412915e1394801baba508b1d40d9e5.jpg");
+
+}
+
+.form-wrapper {
+    font-size: 22px;
+    border-top-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+.form-wrapper legend {
+    font-size: 28px;
+    text-align: center;
+}
+
+.form-wrapper form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 10px;
+    padding: 12px 20px;
+}
+
+.form-wrapper button {
+    align-self: center;
+}
+
+.form-wrapper input {
+    border-radius: 16px;
+    text-indent: 12px;
+    border: 0.5px solid black
+}
+
+.form-wrapper input:focus,
+.form-wrapper input:hover {
+    outline: 1px solid white;
+}

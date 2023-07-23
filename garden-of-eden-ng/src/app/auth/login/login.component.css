@@ -1,0 +1,38 @@
+div.pic-wrapper.login {
+    background-image: url("https://static.onecms.io/wp-content/uploads/sites/39/2023/03/02/102138928_preview-2000.jpg");
+
+}
+
+.form-wrapper {
+    font-size: 22px;
+    border-top-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+}
+
+.form-wrapper legend {
+    font-size: 28px;
+    text-align: center;
+}
+
+.form-wrapper form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    gap: 10px;
+    padding: 12px 20px;
+}
+
+.form-wrapper button {
+    align-self: center;
+}
+
+.form-wrapper input {
+    border-radius: 16px;
+    text-indent: 12px;
+    border: 0.5px solid black
+}
+
+.form-wrapper input:focus,
+.form-wrapper input:hover {
+    outline: 1px solid white;
+}
