@@ -19,7 +19,9 @@ import { AboutComponent } from './about/about.component';
   ],
   exports: [
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    HomeComponent,
+    AboutComponent
   ]
 })
 export class CoreModule { }
