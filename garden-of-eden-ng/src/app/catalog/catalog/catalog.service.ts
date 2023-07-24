@@ -1,13 +1,19 @@
-import { Injectable, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CatalogService implements OnInit {
+export class CatalogService {
 
-  constructor() { }
+  constructor(
+    private http: HttpClient
+    ) { }
 
-  ngOnInit(): void {
-    //
-  }
+    getAllPlants(): Observable<Plant[]>{
+      const url = 'https://garden-of-eden-406ae-default-rtdb.europe-west1.firebasedatabase.app/plants';
+      return this.http.get<Plant[]>(url);
+    }
+
 }
