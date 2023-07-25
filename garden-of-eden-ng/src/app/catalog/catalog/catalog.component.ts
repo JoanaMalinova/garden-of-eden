@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CatalogService } from './catalog.service';
 import { Plant } from 'src/types';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-catalog',
@@ -9,10 +10,12 @@ import { Plant } from 'src/types';
   providers: [CatalogService]
 })
 export class CatalogComponent implements OnInit {
+
   plants: Plant[] = [];
+
   constructor(
     private catalogService: CatalogService,
-
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -26,6 +29,10 @@ export class CatalogComponent implements OnInit {
           console.log(e.message);
         }
       })
+  }
+
+  redirectToDetails(event: Event, id: string): void {
+    this.router.navigate([`/${id}/details`])
   }
 }
 

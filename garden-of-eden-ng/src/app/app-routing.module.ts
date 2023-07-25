@@ -11,16 +11,16 @@ import { DetailsComponent } from './catalog/details/details.component';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 
 const routes: Routes = [
-  {path:'', redirectTo:'home',pathMatch: 'full' },
-  {path:'home', component: HomeComponent},
-  {path:'about', component: AboutComponent},
-  {path:'login', component: LoginComponent},
-  {path:'register', component: RegisterComponent},
-  {path:'catalog', component: CatalogComponent},
-  {path:'favourites', component: FavouritesComponent},
-  {path:'cart', component: CartComponent},
-  {path:':id/details', component: DetailsComponent},
-  {path:'**', component: PageNotFoundComponent} 
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent },
+  { path: 'about', component: AboutComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  { path: 'catalog', component: CatalogComponent },
+  { path: 'favourites', component: FavouritesComponent },
+  { path: 'cart', component: CartComponent },
+  { path: ':plantId/details', component: DetailsComponent },
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({

@@ -4,8 +4,6 @@ import { CatalogComponent } from './catalog/catalog.component';
 import { DetailsComponent } from './details/details.component';
 import { RouterModule } from '@angular/router';
 
-
-
 @NgModule({
   declarations: [
     CatalogComponent,
@@ -13,7 +11,7 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
   ]
 })
 export class CatalogModule { }

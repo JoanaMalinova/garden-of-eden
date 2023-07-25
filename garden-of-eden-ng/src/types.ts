@@ -6,4 +6,6 @@ export interface Plant {
     humidity: string;
     fertilizer: string;
     water: string;
+    imageUrl: string;
+    id: string;
 }
