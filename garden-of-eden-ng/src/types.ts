@@ -9,3 +9,8 @@ export interface Plant {
     imageUrl: string;
     id: string;
 }
+
+// export interface LoginUser {
+//     username: string;
+//     password: string
+// }

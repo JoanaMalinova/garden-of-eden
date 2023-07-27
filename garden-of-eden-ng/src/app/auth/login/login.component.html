@@ -1,12 +1,12 @@
 <div class="pic-wrapper login">
     <fieldset class="form-wrapper">
         <legend>Login</legend>
-        <form method="POST">
+        <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
             <label for="username">Username</label>
-            <input type="text" name="username" id="username">
+            <input type="text" name="username" id="username" ngModel>
 
             <label for="password">Password</label>
-            <input type="password" name="password" id="password">
+            <input type="password" name="password" id="password" ngModel>
 
             <button type="submit">Sign in</button>
 
