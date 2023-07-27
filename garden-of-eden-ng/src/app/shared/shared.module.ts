@@ -4,14 +4,16 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { RouterModule } from '@angular/router';
 
 
-
 @NgModule({
   declarations: [
-    PageNotFoundComponent
+    PageNotFoundComponent,
   ],
   imports: [
     CommonModule,
     RouterModule
+  ],
+  exports: [
+    PageNotFoundComponent
   ]
 })
 export class SharedModule { }

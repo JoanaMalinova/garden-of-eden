@@ -11,6 +11,7 @@ import { CatalogModule } from './catalog/catalog.module';
 import { SharedModule } from './shared/shared.module';
 import { StoreModule } from './store/store.module';
 
+
 @NgModule({
   declarations: [
     AppComponent
@@ -25,7 +26,7 @@ import { StoreModule } from './store/store.module';
     CatalogModule,
     CoreModule,
     SharedModule,
-    StoreModule
+    StoreModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

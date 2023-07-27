@@ -36,3 +36,12 @@ div.pic-wrapper.login {
 .form-wrapper input:hover {
     outline: 1px solid white;
 }
+
+.alert p {
+    font-size: 14px;
+    font-weight: 900;
+    font-style: italic;
+    color: salmon;
+    text-transform: uppercase;
+
+}

@@ -4,16 +4,18 @@
         <form #registerForm="ngForm" method="POST" (ngSubmit)="onSubmit(registerForm)">
             <label for="username">Username</label>
             <input type="text" name="username" id="username" ngModel required minlength="3" maxlength="12"
-                pattern="[a-zA-Z]*">
+                pattern="[a-zA-Z]*" #username="ngModel">
 
             <label for="email">Email</label>
-            <input type="text" name="email" id="email" ngModel email required>
+            <input type="text" name="email" id="email" ngModel email required #email="ngModel">
 
             <label for="password">Password</label>
-            <input type="password" name="password" id="password" ngModel required minlength="6" maxlength="25">
+            <input type="password" name="password" id="password" ngModel required minlength="6" maxlength="25"
+                #password="ngModel">
 
             <label for="repeat-password">Repeat password</label>
-            <input type="password" name="repeat-password" id="repeat-password" ngModel required>
+            <input type="password" name="repeat-password" id="repeat-password" ngModel required
+                #repeatPassword="ngModel">
 
             <button type="submit">Sign up</button>
 
