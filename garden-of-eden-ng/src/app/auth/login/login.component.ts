@@ -8,6 +8,7 @@ import { NgForm } from "@angular/forms"
 })
 export class LoginComponent {
   onSubmit(form: NgForm): void {
-    // const data = this.form.value;
+    const data = form.value;
+    console.log(data);
   }
 }

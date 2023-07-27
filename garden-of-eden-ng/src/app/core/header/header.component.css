@@ -15,6 +15,7 @@ header {
     top: 0px;
     background-color: white;
     z-index: 5;
+    padding: 0 50px;
 }
 
 header .navigation ul {
@@ -43,9 +44,19 @@ header a {
 
 header .search {
     margin-left: auto;
+    gap: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+header .search a {
+    display: inline-block;
+    margin-top: 10px;
 }
 
 header .search input {
+    padding: 2px 0;
     border-radius: 16px;
     font-size: 20px;
     text-indent: 8px;
@@ -53,6 +64,7 @@ header .search input {
     word-wrap: break-word;
     outline: none;
     border: 1.5px solid black;
+    width: 20vw;
 }
 
 header .search input:focus,
