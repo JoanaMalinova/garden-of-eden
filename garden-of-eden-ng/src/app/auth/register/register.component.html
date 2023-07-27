@@ -3,16 +3,17 @@
         <legend>Register</legend>
         <form #registerForm="ngForm" method="POST" (ngSubmit)="onSubmit(registerForm)">
             <label for="username">Username</label>
-            <input type="text" name="username" id="username" ngModel>
+            <input type="text" name="username" id="username" ngModel required minlength="3" maxlength="12"
+                pattern="[a-zA-Z]*">
 
             <label for="email">Email</label>
-            <input type="text" name="email" id="email" ngModel>
+            <input type="text" name="email" id="email" ngModel email required>
 
             <label for="password">Password</label>
-            <input type="password" name="password" id="password" ngModel>
+            <input type="password" name="password" id="password" ngModel required minlength="6" maxlength="25">
 
             <label for="repeat-password">Repeat password</label>
-            <input type="password" name="repeat-password" id="repeat-password" ngModel>
+            <input type="password" name="repeat-password" id="repeat-password" ngModel required>
 
             <button type="submit">Sign up</button>
 

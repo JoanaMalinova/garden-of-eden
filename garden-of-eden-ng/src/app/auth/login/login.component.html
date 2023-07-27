@@ -3,10 +3,10 @@
         <legend>Login</legend>
         <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
             <label for="username">Username</label>
-            <input type="text" name="username" id="username" ngModel>
+            <input type="text" name="username" id="username" ngModel required>
 
             <label for="password">Password</label>
-            <input type="password" name="password" id="password" ngModel>
+            <input type="password" name="password" id="password" ngModel required>
 
             <button type="submit">Sign in</button>
 
