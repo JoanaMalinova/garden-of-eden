@@ -1,18 +1,18 @@
 <div class="pic-wrapper register">
     <fieldset class="form-wrapper">
         <legend>Register</legend>
-        <form method="POST">
+        <form #registerForm="ngForm" method="POST" (ngSubmit)="onSubmit(registerForm)">
             <label for="username">Username</label>
-            <input type="text" name="username" id="username">
+            <input type="text" name="username" id="username" ngModel>
 
             <label for="email">Email</label>
-            <input type="text" name="email" id="email">
+            <input type="text" name="email" id="email" ngModel>
 
             <label for="password">Password</label>
-            <input type="password" name="password" id="password">
+            <input type="password" name="password" id="password" ngModel>
 
             <label for="repeat-password">Repeat password</label>
-            <input type="password" name="repeat-password" id="repeat-password">
+            <input type="password" name="repeat-password" id="repeat-password" ngModel>
 
             <button type="submit">Sign up</button>
 
