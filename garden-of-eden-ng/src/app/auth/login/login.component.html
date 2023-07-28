@@ -2,6 +2,7 @@
     <fieldset class="form-wrapper">
         <legend>Login</legend>
         <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)">
+
             <label for="username">Username</label>
             <input type="text" name="username" id="username" ngModel required #username="ngModel">
             <div *ngIf="username.invalid && username.touched" class="alert">
@@ -14,7 +15,7 @@
                 <p>Password is required</p>
             </div>
 
-            <button type="submit">Sign in</button>
+            <button type="submit" [disabled]="loginForm.invalid">Sign in</button>
 
             <p>Not registered yet?
                 <a href="/register" class="underlined bold">Sign up</a>

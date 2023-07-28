@@ -1,23 +1,67 @@
 <div class="pic-wrapper register">
     <fieldset class="form-wrapper">
         <legend>Register</legend>
-        <form #registerForm="ngForm" method="POST" (ngSubmit)="onSubmit(registerForm)">
-            <label for="username">Username</label>
-            <input type="text" name="username" id="username" ngModel required minlength="3" maxlength="12"
-                pattern="[a-zA-Z]*" #username="ngModel">
+        <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)">
+            <div class="input-wrapper">
+                <label for="username">Username</label>
+                <input type="text" name="username" id="username" ngModel required minlength="3" maxlength="12"
+                    pattern="\w+" #username="ngModel">
+                <div *ngIf="username.invalid && (username.dirty || username.touched)" class="alert">
+                    <div *ngIf="username.errors?.['required']">
+                        <p>Username is required</p>
+                    </div>
+                    <div *ngIf="username.errors?.['minlength']">
+                        <p>Username should be at least 3 characters long</p>
+                    </div>
+                    <div *ngIf="username.errors?.['maxlength']">
+                        <p>Username should be no more than 12 characters long</p>
+                    </div>
+                    <div *ngIf="username.errors?.['pattern']">
+                        <p>Unallowed character</p>
+                    </div>
+                </div>
+            </div>
 
-            <label for="email">Email</label>
-            <input type="text" name="email" id="email" ngModel email required #email="ngModel">
+            <div class="input-wrapper">
+                <label for="email">Email</label>
+                <input type="text" name="email" id="email" ngModel email required #email="ngModel">
+                <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert">
+                    <div *ngIf="email.errors?.['required']">
+                        <p>Email is required</p>
+                    </div>
+                    <div *ngIf="email.errors?.['email']">
+                        <p>This doesn't seem like a real email</p>
+                    </div>
+                </div>
+            </div>
 
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" ngModel required minlength="6" maxlength="25"
-                #password="ngModel">
+            <div class="input-wrapper">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" ngModel required minlength="6" maxlength="25"
+                    #password="ngModel">
+                <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert">
+                    <div *ngIf="password.errors?.['required']">
+                        <p>Password is required</p>
+                    </div>
+                    <div *ngIf="password.errors?.['minlength']">
+                        <p>Password should be at least 6 characters long</p>
+                    </div>
+                    <div *ngIf="password.errors?.['maxlength']">
+                        <p>Password should be no more than 25 characters long</p>
+                    </div>
+                </div>
+            </div>
 
-            <label for="repeat-password">Repeat password</label>
-            <input type="password" name="repeat-password" id="repeat-password" ngModel required
-                #repeatPassword="ngModel">
+            <div class="input-wrapper">
+                <label for="repeat-password">Repeat password</label>
+                <input type="password" name="repeat-password" id="repeat-password" ngModel required
+                    #repeatPassword="ngModel">
+                <div *ngIf="repeatPassword.invalid && repeatPassword.touched" class="alert">
+                    <p>Repeat password is required</p>
+                </div>
+            </div>
 
-            <button type="submit">Sign up</button>
+            <button type="submit" [disabled]="registerForm.invalid">Sign up</button>
 
             <p>Already registered?
                 <a href="/login" class="underlined bold">Sign in</a>
