@@ -17,45 +17,17 @@
 <div class="most-recent">
     <h2 class="parisienne">Most recently added:</h2>
     <div class="card-wrapper">
-        <article class="card">
+        <article class="card" *ngFor="let plant of latest" (click)="redirectToDetails($event, plant.id)">
             <div class="hr-holder">
-                <h3 class="parisienne">Pelargonium peltatum </h3>
+                <h3 class="parisienne">{{plant.name}} </h3>
                 <hr>
             </div>
             <div class="img-holder">
-                <img src="https://d2r5uf6odu3th4.cloudfront.net/cuttings/public/CPD030.jpg" alt="">
+                <img src="{{plant.imageUrl}}" alt="">
             </div>
             <div class="price-holder hr-holder">
                 <hr>
-                <p>23 BGN</p>
-            </div>
-        </article>
-        <article class="card">
-            <div class="hr-holder">
-                <h3 class="parisienne">Chrysanthemum </h3>
-                <hr>
-            </div>
-            <div class="img-holder">
-                <img src="https://sf.tac-cdn.net/images/v2/products/large/FTD-B7-4923.jpg?auto=webp&quality=70&width=490"
-                    alt="">
-            </div>
-            <div class="price-holder hr-holder">
-                <hr>
-                <p>10 BGN</p>
-            </div>
-        </article>
-        <article class="card">
-            <div class="hr-holder">
-                <h3 class="parisienne">Miniature rose</h3>
-                <hr>
-            </div>
-            <div class="img-holder">
-                <img src="https://nurserylive.com/cdn/shop/products/nurserylive-g-miniature-rose-button-rose-any-color-plant-830854.jpg?v=1679750627"
-                    alt="">
-            </div>
-            <div class="price-holder hr-holder">
-                <hr>
-                <p>16 BGN</p>
+                <p>{{plant.price}} BGN</p>
             </div>
         </article>
     </div>
