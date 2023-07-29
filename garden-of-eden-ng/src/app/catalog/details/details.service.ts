@@ -14,7 +14,7 @@ export class DetailsService {
   ) { }
 
   getSinglePlant(plantId: string): Observable<Plant> {
-    const url = 'https://garden-of-eden-406ae-default-rtdb.europe-west1.firebasedatabase.app/plants/' + plantId;
+    const url = `https://garden-of-eden-406ae-default-rtdb.europe-west1.firebasedatabase.app/plants/${plantId}.json`;
     return this.http.get<Plant>(url);
   }
 

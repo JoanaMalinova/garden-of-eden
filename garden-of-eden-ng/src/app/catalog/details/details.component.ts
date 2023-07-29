@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DetailsService } from './details.service';
-// import { Plant } from 'src/types';
 import { ActivatedRoute } from '@angular/router';
+import { Plant } from 'src/types';
 
 @Component({
   selector: 'app-details',
@@ -11,8 +11,18 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DetailsComponent implements OnInit {
 
-  plant = {};
-  plantId = this.route.snapshot.params['plantId'];
+  plant: Plant = {
+    name: '',
+    price: 0,
+    light: '',
+    temperature: '',
+    humidity: '',
+    fertilizer: '',
+    water: '',
+    imageUrl: '',
+    id: '',
+  }
+  plantId: string = this.route.snapshot.params['plantId'];
 
   constructor(
     private detailsService: DetailsService,

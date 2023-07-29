@@ -1,28 +1,21 @@
 <div class="details-wrapper">
     <div class="details-img-holder">
-        <img src="https://d2r5uf6odu3th4.cloudfront.net/cuttings/public/CPD030.jpg" alt="pelargonium">
+        <img src="{{plant.imageUrl}}" alt="pelargonium">
     </div>
     <div class="details-info-holder">
-        <h3 class="name parisienne">Pelargonium peltatum</h3>
+        <h3 class="name parisienne">{{plant.name}}</h3>
         <hr>
         <ul class="specs">
-            <li><span class="bold"><i class="fa-solid fa-leaf"></i>Light:</span> loves full sun exposure</li>
-            <li><span class="bold"><i class="fa-solid fa-leaf"></i>Water:</span> regularly, but in small
-                quantity don't soil the root too much,
-                unless root
-                rot</li>
-            <li><span class="bold"><i class="fa-solid fa-leaf"></i>Fertilizer:</span> once every two weeks
-                during bloom and once a month winter
-                time
+            <li><span class="bold"><i class="fa-solid fa-leaf"></i>Light:</span> {{plant.light}}</li>
+            <li><span class="bold"><i class="fa-solid fa-leaf"></i>Water:</span> {{plant.water}}</li>
+            <li><span class="bold"><i class="fa-solid fa-leaf"></i>Fertilizer:</span> {{plant.fertilizer}}
             </li>
-            <li><span class="bold"><i class="fa-solid fa-leaf"></i>Temperature:</span> 15 - 30 Degrees Celsius
+            <li><span class="bold"><i class="fa-solid fa-leaf"></i>Temperature:</span> {{plant.temperature}} Celsius
             </li>
-            <li><span class="bold"><i class="fa-solid fa-leaf"></i>Humidity:</span> at least 40%, if wheather is
-                hot must be sprayed on with
-                humidifier</li>
+            <li><span class="bold"><i class="fa-solid fa-leaf"></i>Humidity:</span> {{plant.humidity}}</li>
         </ul>
         <hr>
-        <p class="price">22 BGN</p>
+        <p class="price">{{plant.price}} BGN</p>
         <hr>
         <div class="buttons">
             <i class="fa-regular fa-heart fa-xl"></i>
