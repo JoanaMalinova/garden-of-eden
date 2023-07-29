@@ -42,14 +42,16 @@ div.heading-wrapper .catalog-anchor {
 
 
 .most-recent {
-    background-color: gainsboro;
     width: 100%;
     color: black;
+    background-color: gainsboro;
+    padding: 20px 0 40px 0;
 }
 
 .most-recent h2 {
     text-align: center;
     font-size: 40px;
+    margin-bottom: 20px;
 }
 
 .card-wrapper {
@@ -63,6 +65,20 @@ div.heading-wrapper .catalog-anchor {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
+    border: 4px solid white;
+    border-top-left-radius: 30px;
+    border-bottom-right-radius: 30px;
+    padding: 10px 20px;
+    margin-bottom: 30px;
+    gap: 10px;
+}
+
+.card:hover {
+    cursor: pointer;
+    opacity: 0.9;
+    -webkit-box-shadow: 10px 10px 36px -4px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 10px 10px 36px -4px rgba(0, 0, 0, 0.75);
+    box-shadow: 10px 10px 36px -4px rgba(0, 0, 0, 0.75);
 }
 
 .most-recent .img-holder {
@@ -72,12 +88,32 @@ div.heading-wrapper .catalog-anchor {
     aspect-ratio: 1 /1;
     object-fit: cover;
     overflow: hidden;
-    margin: 20px 0 50px 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
 
 .most-recent h3 {
-    font-size: 20px;
+    font-size: 30px;
+}
+
+.most-recent .hr-holder {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 5px;
+}
+
+.most-recent .price-holder p {
+    font-size: 22px;
+    font-weight: 500;
+}
+
+.most-recent hr {
+    width: 70%;
+    height: 2px;
+    border: none;
+    background-color: white;
 }
