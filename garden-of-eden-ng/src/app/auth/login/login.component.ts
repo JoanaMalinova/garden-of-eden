@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NgForm } from "@angular/forms"
+import { LoginData } from 'src/types';
 
 @Component({
   selector: 'app-login',
@@ -8,7 +9,8 @@ import { NgForm } from "@angular/forms"
 })
 export class LoginComponent {
   onSubmit(form: NgForm): void {
-    const data = form.value;
+    const data: LoginData = form.value;
     console.log(data);
+    form.reset();
   }
 }

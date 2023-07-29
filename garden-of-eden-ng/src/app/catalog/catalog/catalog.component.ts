@@ -22,7 +22,7 @@ export class CatalogComponent implements OnInit {
     this.catalogService.getAllPlants()
       .subscribe({
         next: (plants) => {
-          this.plants = plants;
+          this.plants = Object.values(plants);
           console.log(plants);
         },
         error: (e) => {

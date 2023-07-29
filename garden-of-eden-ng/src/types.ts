@@ -10,7 +10,19 @@ export interface Plant {
     id: string;
 }
 
-// export interface LoginUser {
-//     username: string;
-//     password: string
-// }
+export interface PlantObject {
+    [key: string]: Plant
+}
+
+export interface LoginData {
+    username: string;
+    password: string
+}
+
+export interface RegisterData {
+    username: string;
+    email: string;
+    password: string;
+    ["repeat-password"]: string;
+}
+
