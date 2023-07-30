@@ -17,4 +17,9 @@ export class CatalogService {
     return this.http.get<PlantObject>(url);
   }
 
+  getSerachedFor(searchWord: string): Observable<PlantObject> {
+    const url = `https://garden-of-eden-406ae-default-rtdb.europe-west1.firebasedatabase.app/plants.json?orderBy="name"&startAt="${searchWord}"&endAt="${searchWord}\uf8ff"`;
+    return this.http.get<PlantObject>(url);
+  }
+
 }

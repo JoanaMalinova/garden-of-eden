@@ -6,8 +6,10 @@
         </p>
     </div>
     <div class="search">
-        <input type="text" placeholder="Search....">
-        <a href=""><i class="fa-solid fa-magnifying-glass fa-xs"></i></a>
+        <form #searchForm="ngForm" (ngSubmit)="onSubmit(searchForm)">
+            <input type="text" name="search" placeholder="Search...." ngModel>
+            <button type="submit"><i class="fa-solid fa-magnifying-glass fa-2xl"></i></button>
+        </form>
     </div>
     <div class="navigation">
         <nav>

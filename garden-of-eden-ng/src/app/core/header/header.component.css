@@ -44,9 +44,11 @@ header a {
 
 header .search {
     margin-left: auto;
+}
+
+header .search form {
     gap: 10px;
     display: flex;
-    gap: 10px;
     align-items: center;
 }
 
