@@ -55,9 +55,14 @@
             <div class="input-wrapper">
                 <label for="repeat-password">Repeat password</label>
                 <input type="password" name="repeat-password" id="repeat-password" ngModel required
-                    #repeatPassword="ngModel">
+                    pattern="{{ password.value }}" #repeatPassword="ngModel">
                 <div *ngIf="repeatPassword.invalid && repeatPassword.touched" class="alert">
-                    <p>Repeat password is required</p>
+                    <div *ngIf="repeatPassword.errors?.['required']">
+                        <p>Repeat password is required</p>
+                    </div>
+                    <div *ngIf="repeatPassword.errors?.['pattern']">
+                        <p>Password and repeat password don't match</p>
+                    </div>
                 </div>
             </div>
 

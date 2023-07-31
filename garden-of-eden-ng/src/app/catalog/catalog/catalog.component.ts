@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CatalogService } from './catalog.service';
 import { Plant } from 'src/types';
 import { Router } from '@angular/router';
@@ -10,7 +10,7 @@ import { AppService } from 'src/app/app.service';
   styleUrls: ['./catalog.component.css'],
   providers: [CatalogService]
 })
-export class CatalogComponent implements OnInit, OnDestroy {
+export class CatalogComponent implements OnInit {
 
   plants: Plant[] = [];
 
@@ -46,9 +46,6 @@ export class CatalogComponent implements OnInit, OnDestroy {
           }
         })
     }
-  }
-  ngOnDestroy(): void {
-    this.appService.setSearchWord('');
   }
 
 

@@ -19,5 +19,6 @@ export class HeaderComponent {
     const data: { search: string } = form.value;
     this.appService.setSearchWord(data.search);
     this.router.navigate(['/catalog']);
+    form.reset();
   }
 }
