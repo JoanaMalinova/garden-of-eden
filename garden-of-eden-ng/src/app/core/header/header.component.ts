@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { getAuth } from '@angular/fire/auth';
 import { NgForm } from "@angular/forms"
 import { Router } from '@angular/router';
 import { AppService } from 'src/app/app.service';
@@ -9,6 +10,9 @@ import { AppService } from 'src/app/app.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
+
+  auth = getAuth();
+  user = this.auth.currentUser;
 
   constructor(
     private appService: AppService,

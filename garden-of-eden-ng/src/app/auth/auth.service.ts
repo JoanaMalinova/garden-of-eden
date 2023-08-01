@@ -1,7 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { User, LoginData } from 'src/types';
+import { LoginData } from 'src/types';
+import { getAuth, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword } from "firebase/auth";
 
 @Injectable({
   providedIn: 'root'
@@ -9,17 +8,22 @@ import { User, LoginData } from 'src/types';
 export class AuthService {
 
   url: string = "https://garden-of-eden-406ae-default-rtdb.europe-west1.firebasedatabase.app/users";
+  auth = getAuth();
 
   constructor(
-    private http: HttpClient
+
   ) { }
 
-  login(userData: LoginData): Observable<User> {
-    return this.http.post<User>(this.url + "/login", userData);
+  login(userData: LoginData): void {
+    signInWithEmailAndPassword(this.auth, userData.email, userData.password)
   }
 
-  register(userData: { email: string, password: string, username: string }): Observable<User> {
-    return this.http.post<User>(this.url + "/register", userData);
+  register(userData: { email: string, password: string, username: string }): void {
+    createUserWithEmailAndPassword(this.auth, userData.email, userData.password)
+      .then(({ user }) => {
+        updateProfile(user, { displayName: userData.username });
+      })
+      .catch(console.log);
   }
 
 }

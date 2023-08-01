@@ -23,18 +23,13 @@ export class RegisterComponent {
   ) { }
 
   onSubmit(form: NgForm): void {
+
     const data: RegisterData = form.value;
     console.log(data);
+
     const { username, password, email } = data;
-    this.authService.register({ username, password, email })
-      .subscribe({
-        next: (user) => {
-          this.user = user;
-        },
-        error: (e) => {
-          console.log(e.message);
-        }
-      })
+
+    this.authService.register({ username, password, email });
     form.reset();
   }
 

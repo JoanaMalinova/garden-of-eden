@@ -21,19 +21,11 @@ export class LoginComponent {
     private authService: AuthService
   ) {
   }
+
   onSubmit(form: NgForm): void {
     const data: LoginData = form.value;
     console.log(data);
-    this.authService.login(data)
-      .subscribe({
-        next: (user) => {
-          this.user = user;
-        },
-        error: (e) => {
-          console.log(e.message);
-        }
-      })
-
+    this.authService.login(data);
     form.reset();
   }
 }
