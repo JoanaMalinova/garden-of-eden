@@ -1,0 +1,9 @@
+{
+  "hosting": [
+    {
+      "target": "garden-of-eden-ng",
+      "source": ".",
+      "frameworksBackend": {}
+    }
+  ]
+}

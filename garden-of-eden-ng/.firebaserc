@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "garden-of-eden-406ae": {
+      "hosting": {
+        "garden-of-eden-ng": [
+          "garden-of-eden-406ae"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "garden-of-eden-406ae"
+  }
+}
