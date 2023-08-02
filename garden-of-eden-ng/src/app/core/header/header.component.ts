@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { getAuth } from '@angular/fire/auth';
 import { NgForm } from "@angular/forms"
 import { Router } from '@angular/router';
 import { AppService } from 'src/app/app.service';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -11,12 +11,13 @@ import { AppService } from 'src/app/app.service';
 })
 export class HeaderComponent {
 
-  auth = getAuth();
-  user = this.auth.currentUser;
+  user = this.authService.auth.currentUser;
 
   constructor(
     private appService: AppService,
-    private router: Router
+    private router: Router,
+    private authService: AuthService,
+
   ) { }
 
   onSubmit(form: NgForm): void {
@@ -24,5 +25,9 @@ export class HeaderComponent {
     this.appService.setSearchWord(data.search);
     this.router.navigate(['/catalog']);
     form.reset();
+  }
+
+  onLogout(): void {
+    this.authService.logout();
   }
 }

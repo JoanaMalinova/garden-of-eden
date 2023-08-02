@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { RegisterData } from 'src/types';
 import { AuthService } from '../auth.service';
-import { User } from 'src/types';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -11,15 +11,9 @@ import { User } from 'src/types';
 })
 export class RegisterComponent {
 
-  user: User = {
-    username: "",
-    email: "",
-    password: "",
-    id: ""
-  }
-
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   onSubmit(form: NgForm): void {
@@ -29,8 +23,15 @@ export class RegisterComponent {
 
     const { username, password, email } = data;
 
-    this.authService.register({ username, password, email });
-    form.reset();
+    try {
+      this.authService.register({ username, password, email });
+      form.reset();
+      this.router.navigate(['/catalog']);
+
+    } catch (error) {
+      console.error
+    }
+
   }
 
 }

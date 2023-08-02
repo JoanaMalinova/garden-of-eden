@@ -18,11 +18,12 @@ header {
     padding: 0 50px;
 }
 
+/* 
 header .navigation ul {
     display: flex;
     align-items: center;
     gap: 50px;
-}
+} */
 
 header .navigation .heart {
     padding-top: 20px;
@@ -91,4 +92,11 @@ header .shopping_cart img {
 
 .bold {
     font-weight: 700;
+}
+
+header .guest,
+header .user {
+    display: flex;
+    align-items: center;
+    gap: 50px;
 }

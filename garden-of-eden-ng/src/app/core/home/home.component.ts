@@ -25,7 +25,6 @@ export class HomeComponent implements OnInit {
       .subscribe({
         next: (latest) => {
           this.latest = Object.values(latest);
-          console.log(latest);
         },
         error: (e) => {
           console.log(e.message);

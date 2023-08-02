@@ -20,6 +20,7 @@ const routes: Routes = [
   { path: 'favourites', component: FavouritesComponent },
   { path: 'cart', component: CartComponent },
   { path: ':plantId/details', component: DetailsComponent },
+  { path: 'logout', redirectTo: 'home' },
   { path: '**', component: PageNotFoundComponent }
 ];
 

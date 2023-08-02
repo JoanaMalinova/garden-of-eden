@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../auth/auth.service';
 
 
 
@@ -26,6 +27,9 @@ import { FormsModule } from '@angular/forms';
     FooterComponent,
     HomeComponent,
     AboutComponent
+  ],
+  providers: [
+    AuthService
   ]
 })
 export class CoreModule { }

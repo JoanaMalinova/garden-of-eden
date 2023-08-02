@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NgForm } from "@angular/forms"
-import { LoginData, User } from 'src/types';
+import { LoginData } from 'src/types';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,22 +11,22 @@ import { AuthService } from '../auth.service';
 })
 export class LoginComponent {
 
-  user: User = {
-    username: "",
-    email: "",
-    password: "",
-    id: ""
-  }
-
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
   }
 
   onSubmit(form: NgForm): void {
     const data: LoginData = form.value;
-    console.log(data);
-    this.authService.login(data);
-    form.reset();
+
+    try {
+      this.authService.login(data);
+      form.reset();
+      this.router.navigate(["/catalog"]);
+    } catch (error) {
+      console.error
+    }
+
   }
 }
