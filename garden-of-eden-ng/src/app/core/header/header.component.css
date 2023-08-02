@@ -100,3 +100,14 @@ header .user {
     align-items: center;
     gap: 50px;
 }
+
+.welcome {
+    font-size: 26px;
+    color: green
+}
+
+.ul-nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}

@@ -29,7 +29,7 @@ export class RegisterComponent {
       this.router.navigate(['/catalog']);
 
     } catch (error) {
-      console.error
+      console.error(error);
     }
 
   }

@@ -24,8 +24,9 @@ export class LoginComponent {
       this.authService.login(data);
       form.reset();
       this.router.navigate(["/catalog"]);
+
     } catch (error) {
-      console.error
+      console.error(error);
     }
 
   }

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { getAuth, onAuthStateChanged } from '@angular/fire/auth';
 import { NgForm } from "@angular/forms"
 import { Router } from '@angular/router';
 import { AppService } from 'src/app/app.service';
@@ -9,9 +10,11 @@ import { AuthService } from 'src/app/auth/auth.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit {
 
-  user = this.authService.auth.currentUser;
+  auth = getAuth();
+  currUser: boolean = false;
+  username: string | null = null;
 
   constructor(
     private appService: AppService,
@@ -30,4 +33,15 @@ export class HeaderComponent {
   onLogout(): void {
     this.authService.logout();
   }
+  ngOnInit(): void {
+    onAuthStateChanged(this.auth, (user) => {
+      if (user) {
+        this.currUser = true;
+        this.username = user.displayName
+      } else {
+        this.currUser = false;
+      }
+    });
+  }
+
 }

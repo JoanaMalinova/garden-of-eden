@@ -17,10 +17,12 @@ export class AuthService {
   login(userData: LoginData): void {
     signInWithEmailAndPassword(this.auth, userData.email, userData.password)
       .then(() => {
-        console.log(`${this.auth.currentUser?.displayName} successfully logged in!`)
+        console.log(`${this.auth.currentUser?.displayName} successfully logged in!`);
+        console.log(this.auth.currentUser);
       })
       .catch((err) => {
         console.log(err);
+        throw new Error(err.message);
       })
   }
 
@@ -32,6 +34,7 @@ export class AuthService {
       })
       .catch((err) => {
         console.log(err)
+        throw new Error(err.message);
       });
   }
 
