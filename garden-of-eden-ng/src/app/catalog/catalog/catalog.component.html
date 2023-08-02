@@ -5,7 +5,7 @@
         </div>
         <section>
             <span class="parisienne plant-name">{{plant.name}}</span>
-            <p class="plant-price">{{plant.price}} BGN<span><button><i
+            <p class="plant-price">{{plant.price}} BGN<span *ngIf="currUser"><button><i
                             class="fa-regular fa-heart"></i></button><button><i
                             class="fa-solid fa-basket-shopping"></i></button></span></p>
         </section>

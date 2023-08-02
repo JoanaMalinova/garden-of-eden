@@ -149,3 +149,11 @@ button:hover {
 main {
     color: white;
 }
+
+.bold {
+    font-weight: 600;
+}
+
+.green {
+    color: green;
+}

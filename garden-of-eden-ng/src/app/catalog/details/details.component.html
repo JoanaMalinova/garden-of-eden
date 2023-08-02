@@ -6,18 +6,18 @@
         <h3 class="name parisienne">{{plant.name}}</h3>
         <hr>
         <ul class="specs">
-            <li><span class="bold"><i class="fa-solid fa-leaf"></i>Light:</span> {{plant.light}}</li>
-            <li><span class="bold"><i class="fa-solid fa-leaf"></i>Water:</span> {{plant.water}}</li>
-            <li><span class="bold"><i class="fa-solid fa-leaf"></i>Fertilizer:</span> {{plant.fertilizer}}
+            <li><span class="bold"><i class="fa-solid fa-leaf"></i>Light</span> {{plant.light}}</li>
+            <li><span class="bold"><i class="fa-solid fa-leaf"></i>Water</span> {{plant.water}}</li>
+            <li><span class="bold"><i class="fa-solid fa-leaf"></i>Fertilizer</span> {{plant.fertilizer}}
             </li>
-            <li><span class="bold"><i class="fa-solid fa-leaf"></i>Temperature:</span> {{plant.temperature}} Celsius
+            <li><span class="bold"><i class="fa-solid fa-leaf"></i>Temperature</span> {{plant.temperature}} Celsius
             </li>
-            <li><span class="bold"><i class="fa-solid fa-leaf"></i>Humidity:</span> {{plant.humidity}}</li>
+            <li><span class="bold"><i class="fa-solid fa-leaf"></i>Humidity</span> {{plant.humidity}}</li>
         </ul>
         <hr>
         <p class="price">{{plant.price}} BGN</p>
-        <hr>
-        <div class="buttons">
+        <hr *ngIf="currUser">
+        <div class="buttons" *ngIf="currUser">
             <i class="fa-regular fa-heart fa-xl"></i>
             <button><i class="fa-solid fa-basket-shopping"></i> Add to cart</button>
         </div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DetailsService } from './details.service';
 import { ActivatedRoute } from '@angular/router';
 import { Plant } from 'src/types';
+import { getAuth, onAuthStateChanged } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-details',
@@ -10,6 +11,9 @@ import { Plant } from 'src/types';
   providers: [DetailsService]
 })
 export class DetailsComponent implements OnInit {
+
+  auth = getAuth();
+  currUser: boolean = false;
 
   plant: Plant = {
     name: '',
@@ -30,6 +34,13 @@ export class DetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    onAuthStateChanged(this.auth, (user) => {
+      if (user) {
+        this.currUser = true;
+      } else {
+        this.currUser = false;
+      }
+    });
     this.detailsService.getSinglePlant(this.plantId)
       .subscribe({
         next: (plant) => {

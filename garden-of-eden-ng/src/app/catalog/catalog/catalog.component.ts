@@ -3,6 +3,7 @@ import { CatalogService } from './catalog.service';
 import { Plant } from 'src/types';
 import { Router } from '@angular/router';
 import { AppService } from 'src/app/app.service';
+import { getAuth, onAuthStateChanged } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-catalog',
@@ -10,10 +11,12 @@ import { AppService } from 'src/app/app.service';
   styleUrls: ['./catalog.component.css'],
   providers: [CatalogService]
 })
+
 export class CatalogComponent implements OnInit {
 
   plants: Plant[] = [];
-
+  auth = getAuth();
+  currUser: boolean = false;
   searchWord: string = "";
 
   constructor(
@@ -23,6 +26,14 @@ export class CatalogComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
+    onAuthStateChanged(this.auth, (user) => {
+      if (user) {
+        this.currUser = true;
+      } else {
+        this.currUser = false;
+      }
+    });
     this.appService.getSearchWord.subscribe(word => this.searchWord = word);
     console.log(this.searchWord);
     if (this.searchWord) {

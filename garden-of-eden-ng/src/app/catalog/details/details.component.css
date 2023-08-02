@@ -28,7 +28,7 @@
 }
 
 .details-wrapper hr {
-    width: 80%;
+    width: 70%;
 }
 
 .details-wrapper .name {
@@ -42,5 +42,7 @@
 }
 
 .details-wrapper hr {
-    color: black;
+    background-color: white;
+    height: 2px;
+    border: none;
 }
