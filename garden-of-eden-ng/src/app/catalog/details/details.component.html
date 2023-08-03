@@ -33,8 +33,9 @@
         <p class="price">{{plant.price}} BGN</p>
         <hr *ngIf="currUser">
         <div class="buttons" *ngIf="currUser">
-            <button class="like-btn" (click)="addToFavourites()"><i class="fa-regular fa-heart fa-xl"></i></button>
-            <button class="add-to-cart-btn" (click)="addToCart()"><i class="fa-solid fa-basket-shopping"></i> Add to
+            <button class="like-btn" (click)="onLike(plant.id)"><i class="fa-regular fa-heart fa-xl"></i></button>
+            <button class="add-to-cart-btn" (click)="onCartAdd(plant.id)"><i class="fa-solid fa-basket-shopping"></i>
+                Add to
                 cart</button>
         </div>
     </div>

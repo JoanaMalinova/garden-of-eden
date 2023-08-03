@@ -3,12 +3,13 @@ import { DetailsService } from './details.service';
 import { ActivatedRoute } from '@angular/router';
 import { Plant } from 'src/types';
 import { getAuth, onAuthStateChanged } from '@angular/fire/auth';
+import { StoreService } from 'src/app/store/store.service';
 
 @Component({
   selector: 'app-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css'],
-  providers: [DetailsService]
+  providers: [DetailsService, StoreService]
 })
 export class DetailsComponent implements OnInit {
 
@@ -30,15 +31,16 @@ export class DetailsComponent implements OnInit {
 
   constructor(
     private detailsService: DetailsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private storeService: StoreService
   ) { }
 
-  addToFavourites(): void {
-
+  onLike(plantId: string): void {
+    this.storeService.addToFavourites(plantId, this.auth.currentUser?.uid);
   }
 
-  addToCart(): void {
-
+  onCartAdd(plantId: string): void {
+    this.storeService.addToCart(plantId);
   }
 
   ngOnInit(): void {

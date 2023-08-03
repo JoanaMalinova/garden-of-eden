@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { LoginData } from 'src/types';
 import { getAuth, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, Auth, signOut } from "@angular/fire/auth";
 import { FirebaseApp } from '@angular/fire/app';
+import { Database, getDatabase, ref, set } from "firebase/database";
 
 @Injectable({
   providedIn: 'root'
@@ -9,9 +10,11 @@ import { FirebaseApp } from '@angular/fire/app';
 export class AuthService {
 
   auth: Auth;
+  db: Database;
 
   constructor(private app: FirebaseApp) {
-    this.auth = getAuth(this.app)
+    this.auth = getAuth(this.app),
+      this.db = getDatabase(this.app)
   }
 
   login(userData: LoginData): void {
@@ -30,7 +33,11 @@ export class AuthService {
     createUserWithEmailAndPassword(this.auth, userData.email, userData.password)
       .then(({ user }) => {
         updateProfile(user, { displayName: userData.username });
-        console.log(this.auth.currentUser);
+        set(ref(this.db, 'users/' + user.uid), {
+          username: userData.username,
+          email: userData.email,
+          userId: user.uid
+        });
       })
       .catch((err) => {
         console.log(err)

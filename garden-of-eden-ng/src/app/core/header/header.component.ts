@@ -37,7 +37,7 @@ export class HeaderComponent implements OnInit {
     onAuthStateChanged(this.auth, (user) => {
       if (user) {
         this.currUser = true;
-        this.username = user.displayName
+        this.username = user.displayName;
       } else {
         this.currUser = false;
       }
