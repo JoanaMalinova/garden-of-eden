@@ -33,6 +33,14 @@ export class DetailsComponent implements OnInit {
     private route: ActivatedRoute
   ) { }
 
+  addToFavourites(): void {
+
+  }
+
+  addToCart(): void {
+
+  }
+
   ngOnInit(): void {
     onAuthStateChanged(this.auth, (user) => {
       if (user) {

@@ -1,25 +1,41 @@
 <div class="details-wrapper">
     <div class="details-img-holder">
-        <img src="{{plant.imageUrl}}" alt="pelargonium">
+        <img src="{{plant.imageUrl}}" alt="pelargonium" class="thumbnail">
     </div>
     <div class="details-info-holder">
         <h3 class="name parisienne">{{plant.name}}</h3>
         <hr>
         <ul class="specs">
-            <li><span class="bold"><i class="fa-solid fa-leaf"></i>Light</span> {{plant.light}}</li>
-            <li><span class="bold"><i class="fa-solid fa-leaf"></i>Water</span> {{plant.water}}</li>
-            <li><span class="bold"><i class="fa-solid fa-leaf"></i>Fertilizer</span> {{plant.fertilizer}}
+            <li class="left"><span class="parisienne span-first"><i class=" fa-solid fa-sun"></i> Light</span>
+                <hr class="in-hr">
+                <span>{{plant.light}}</span>
             </li>
-            <li><span class="bold"><i class="fa-solid fa-leaf"></i>Temperature</span> {{plant.temperature}} Celsius
+            <li class="right"><span class="parisienne span-first"> Water <i class="fa-solid fa-droplet"></i></span>
+                <hr class="in-hr"><span>{{plant.water}}</span>
             </li>
-            <li><span class="bold"><i class="fa-solid fa-leaf"></i>Humidity</span> {{plant.humidity}}</li>
+            <li class="left"><span class="parisienne span-first"><i class="fa-solid fa-leaf"></i>
+                    Fertilizer</span>
+                <hr class="in-hr"><span>{{plant.fertilizer}}</span>
+
+            </li>
+            <li class="right"><span class="parisienne span-first">
+                    Temperature <i class="fa-solid fa-temperature-three-quarters"></i></span>
+                <hr class="in-hr"><span>{{plant.temperature}}
+                    Celsius</span>
+
+            </li>
+            <li class="left"><span class="parisienne span-first"><i class="fa-solid fa-wind"></i>
+                    Humidity</span>
+                <hr class="in-hr"><span>{{plant.humidity}}</span>
+            </li>
         </ul>
         <hr>
         <p class="price">{{plant.price}} BGN</p>
         <hr *ngIf="currUser">
         <div class="buttons" *ngIf="currUser">
-            <i class="fa-regular fa-heart fa-xl"></i>
-            <button><i class="fa-solid fa-basket-shopping"></i> Add to cart</button>
+            <button class="like-btn" (click)="addToFavourites()"><i class="fa-regular fa-heart fa-xl"></i></button>
+            <button class="add-to-cart-btn" (click)="addToCart()"><i class="fa-solid fa-basket-shopping"></i> Add to
+                cart</button>
         </div>
     </div>
 </div>

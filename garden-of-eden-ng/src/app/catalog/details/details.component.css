@@ -5,7 +5,9 @@
     display: flex;
     gap: 50px;
     justify-content: space-around;
+    align-items: center;
     padding: 40px 200px;
+    height: 100vh;
 }
 
 .details-wrapper .details-info-holder {
@@ -18,7 +20,14 @@
 .details-info-holder,
 .details-img-holder {
     flex-basis: 50%;
+}
+
+.details-img-holder {
     height: 80vh;
+}
+
+.details-info-holder {
+    height: 90vh;
 }
 
 .details-img-holder img {
@@ -45,4 +54,64 @@
     background-color: white;
     height: 2px;
     border: none;
+}
+
+.specs {
+    width: 56%;
+}
+
+.specs li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.thumbnail {
+    top: -50px;
+    left: -35px;
+    display: block;
+    z-index: 999;
+    cursor: zoom-in;
+    transition-property: all;
+    transition-duration: 0.2s;
+    transition-timing-function: ease;
+}
+
+.thumbnail:hover {
+    transform: scale(1.2);
+}
+
+.left * {
+    align-self: flex-start;
+}
+
+.right * {
+    align-self: flex-end;
+}
+
+.span-first {
+    font-size: 30px;
+}
+
+.details-wrapper .details-info-holder hr.in-hr {
+    height: 1px;
+    width: 40%;
+}
+
+.like-btn {
+    border: none;
+}
+
+.add-to-cart-btn {
+    padding: 6px 10px;
+}
+
+.like-btn:hover {
+    color: salmon;
+}
+
+.add-to-cart-btn:hover {
+    font-weight: normal;
+    background-color: white;
+    color: dimgray;
 }
