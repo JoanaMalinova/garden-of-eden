@@ -15,6 +15,7 @@ export class DetailsComponent implements OnInit {
 
   auth = getAuth();
   currUser: boolean = false;
+  userId: string = '';
 
   plant: Plant = {
     name: '',
@@ -35,8 +36,12 @@ export class DetailsComponent implements OnInit {
     private storeService: StoreService
   ) { }
 
-  onLike(plantId: string): void {
-    this.storeService.addToFavourites(plantId, this.auth.currentUser?.uid);
+  onLike(plantId: string, plantName: string): void {
+    if (this.auth.currentUser) {
+      this.userId = this.auth.currentUser.uid;
+    }
+    this.storeService.addToFavourites(plantId, plantName, this.userId, this.auth.currentUser?.email);
+    console.log("i clicked");
   }
 
   onCartAdd(plantId: string): void {
@@ -55,7 +60,6 @@ export class DetailsComponent implements OnInit {
       .subscribe({
         next: (plant) => {
           this.plant = plant;
-          console.log(plant);
         },
         error: (e) => {
           console.log(e.message);

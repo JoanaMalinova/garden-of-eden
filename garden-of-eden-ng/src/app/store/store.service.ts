@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Database, getDatabase, ref, set, onValue } from 'firebase/database';
+import { Database, getDatabase, ref, set, onValue, remove } from 'firebase/database';
 import { FirebaseApp } from '@angular/fire/app';
 
 @Injectable({
@@ -9,25 +9,67 @@ import { FirebaseApp } from '@angular/fire/app';
 export class StoreService {
 
   db: Database;
+  exists: boolean = false;
 
   constructor(private app: FirebaseApp) {
-    this.db = getDatabase(this.app)
+    this.db = getDatabase(this.app);
   }
 
-  addToFavourites(plantId: string, userId: string | undefined): void {
-    set(ref(this.db, 'users/favourites'), {
-      id: plantId
-    });
-    set(ref(this.db, 'plants/likes'), {
-      id: userId
-    });
+  async addToFavourites(plantId: string, plantName: string, userId: string, email: string | null | undefined): Promise<void> {
+    try {
+
+    } catch (error) {
+      console.log('WTF')
+    }
+    const userUrl = `users/${userId}/favourites/${plantId}`;
+    const plantUrl = `plants/${plantId}/likes/${userId}`;
+    const userFavouritesRef = ref(this.db, userUrl);
+    const plantsLikesRef = ref(this.db, plantUrl);
+
+
+    await this.checkIfExists(userFavouritesRef);
+
+    console.log(this.exists);
+    console.log(userUrl);
+    console.log(plantUrl);
+
+    if (this.exists) {
+
+      Promise.all([remove(userFavouritesRef), remove(plantsLikesRef)])
+        .catch(() => {
+          console.log('Error removing path')
+        });
+
+
+    } else {
+
+      Promise.all([
+        set(userFavouritesRef, {
+          id: plantId,
+          name: plantName
+        }),
+        set(plantsLikesRef, {
+          id: userId,
+          email
+        })
+          .catch(() => {
+            console.log('Error is in set method!!')
+          })
+      ])
+    }
   }
 
   addToCart(plantId: string): void {
 
   }
 
-  checkIfLiked(plantId: string, userId: string | undefined): void {
+  async checkIfExists(reference: any): Promise<void> {
+
+    await onValue(reference, (snapshot) => {
+
+      this.exists = snapshot.exists();
+
+    })
 
   }
 
