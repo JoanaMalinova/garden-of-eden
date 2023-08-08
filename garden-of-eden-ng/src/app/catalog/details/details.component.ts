@@ -15,7 +15,9 @@ export class DetailsComponent implements OnInit {
 
   auth = getAuth();
   currUser: boolean = false;
-  userId: string = '';
+  userId: string | undefined = '';
+  liked: boolean = false;
+  email: string | undefined | null = "";
 
   plant: Plant = {
     name: '',
@@ -33,14 +35,18 @@ export class DetailsComponent implements OnInit {
   constructor(
     private detailsService: DetailsService,
     private route: ActivatedRoute,
-    private storeService: StoreService
+    private storeService: StoreService,
+
   ) { }
 
-  onLike(plantId: string, plantName: string): void {
-    if (this.auth.currentUser) {
-      this.userId = this.auth.currentUser.uid;
-    }
-    this.storeService.addToFavourites(plantId, plantName, this.userId, this.auth.currentUser?.email);
+  onLike(plantId: string, plantName: string, imageUrl: string, price: number): void {
+
+    onAuthStateChanged(this.auth, (user) => {
+      this.userId = user?.uid;
+      this.email = user?.email;
+      this.storeService.addToFavourites(plantId, plantName, imageUrl, price, this.userId, this.email);
+    });
+
     console.log("i clicked");
   }
 
@@ -52,6 +58,8 @@ export class DetailsComponent implements OnInit {
     onAuthStateChanged(this.auth, (user) => {
       if (user) {
         this.currUser = true;
+        this.userId = user?.uid;
+        console.log(this.userId);
       } else {
         this.currUser = false;
       }
@@ -60,11 +68,14 @@ export class DetailsComponent implements OnInit {
       .subscribe({
         next: (plant) => {
           this.plant = plant;
+          console.log(this.userId)
+          this.liked = plant.likes?.[`${this.userId}`] ? true : false;
+          console.log(this.liked);
         },
         error: (e) => {
           console.log(e.message);
         }
       })
-
   }
+
 }

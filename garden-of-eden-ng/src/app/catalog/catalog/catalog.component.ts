@@ -34,6 +34,7 @@ export class CatalogComponent implements OnInit {
         this.currUser = false;
       }
     });
+
     this.appService.getSearchWord.subscribe(word => this.searchWord = word);
     console.log(this.searchWord);
     if (this.searchWord) {
