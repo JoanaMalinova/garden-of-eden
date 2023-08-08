@@ -89,3 +89,7 @@
     text-decoration: underline;
     font-style: italic;
 }
+
+.plant-price button:hover {
+    opacity: 0.6;
+}
