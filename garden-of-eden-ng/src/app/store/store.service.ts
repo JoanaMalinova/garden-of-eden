@@ -4,6 +4,7 @@ import { FirebaseApp } from '@angular/fire/app';
 import { LikedPlantObject } from 'src/types';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,8 @@ export class StoreService {
 
   constructor(
     private app: FirebaseApp,
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) {
     this.db = getDatabase(this.app);
 
@@ -31,20 +33,14 @@ export class StoreService {
     email: string | null | undefined
   ): Promise<void> {
 
-    const userUrl = `users/${userId}/favourites/${plantId}`;
-    const plantUrl = `plants/${plantId}/likes/${userId}`;
-    const userFavouritesRef = ref(this.db, userUrl);
-    const plantsLikesRef = ref(this.db, plantUrl);
-
+    const userFavouritesRef = ref(this.db, `users/${userId}/favourites/${plantId}`);
+    const plantsLikesRef = ref(this.db, `plants/${plantId}/likes/${userId}`);
 
     await this.checkIfExists(userFavouritesRef);
 
     if (this.exists) {
 
-      Promise.all([remove(userFavouritesRef), remove(plantsLikesRef)])
-        .catch(() => {
-          console.log('Error removing path')
-        });
+      this.deleteLiked(plantId, userId)
 
     } else {
 
@@ -87,9 +83,16 @@ export class StoreService {
 
   }
 
-  deleteLiked(plantId: string, userId: string): void {
-    const url = `https://garden-of-eden-406ae-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}/favourites/${plantId}.json`
-    this.http.delete(url);
+  deleteLiked(plantId: string, userId: string | undefined): void {
+    Promise.all([
+      remove(ref(this.db, `users/${userId}/favourites/${plantId}`)),
+      remove(ref(this.db, `plants/${plantId}/likes/${userId}`))
+    ])
+      .catch(() => {
+        console.log('Error removing path')
+      });
+
+    this.router.navigate(['/favourites']);
   }
 
 }

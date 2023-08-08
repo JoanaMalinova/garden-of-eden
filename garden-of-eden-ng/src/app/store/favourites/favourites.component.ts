@@ -52,8 +52,9 @@ export class FavouritesComponent implements OnInit {
     this.storeService.addToCart(plantId)
   }
 
-  onTrashClick(plantId: string): void {
-
+  onTrashClick(plantId: string,): void {
+    console.log('clicked trash')
+    this.storeService.deleteLiked(plantId, this.userId);
   }
 
 }

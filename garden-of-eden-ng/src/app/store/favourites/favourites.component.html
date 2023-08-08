@@ -1,8 +1,8 @@
 <div class="like-wrapper">
     <h1 class="parisienne">Favourites</h1>
     <div class="catalog-wrapper" *ngIf="!noFavourites">
-        <article class="catalog-card" *ngFor="let plant of plants" (click)="redirectToDetails($event,plant.id)">
-            <div class="catalog-img-holder">
+        <article class="catalog-card" *ngFor="let plant of plants">
+            <div class="catalog-img-holder" (click)="redirectToDetails($event,plant.id)">
                 <img src="{{plant.imageUrl}}" alt="{{plant.name}}" class="thumbnail">
             </div>
             <section>
