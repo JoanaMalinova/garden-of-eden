@@ -20,7 +20,6 @@
 
 .cart-wrapper .cart-image-holder {
     height: 180px;
-    width: fit-content;
 }
 
 .cart-wrapper .cart-image-holder:hover {
@@ -48,6 +47,10 @@ table button {
 table button.unset {
     all: unset;
     cursor: pointer
+}
+
+table button.unset:hover {
+    opacity: 0.4;
 }
 
 table .table-price {

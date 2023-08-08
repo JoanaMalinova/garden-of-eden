@@ -62,3 +62,11 @@
 .thumbnail:hover {
     transform: scale(1.2);
 }
+
+.like-btn:hover {
+    color: salmon;
+}
+
+.add-to-cart:hover {
+    opacity: 0.6;
+}

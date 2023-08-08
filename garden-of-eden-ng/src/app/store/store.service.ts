@@ -26,8 +26,8 @@ export class StoreService {
     plantName: string,
     imageUrl: string,
     price: number,
-    userId: string | undefined,
-    email: string | null | undefined
+    userId: string,
+    email: string
   ): Promise<void> {
 
     const userFavouritesRef = ref(this.db, `users/${userId}/favourites/${plantId}`);
@@ -61,7 +61,7 @@ export class StoreService {
     }
   }
 
-  async addToCart(plantId: string, userId: string | undefined, plantName: string, imageUrl: string, price: number): Promise<void> {
+  async addToCart(plantId: string, userId: string, plantName: string, imageUrl: string, price: number): Promise<void> {
 
     const userCartRef = ref(this.db, `users/${userId}/cart/${plantId}`);
     const quantityRef = ref(this.db, `users/${userId}/cart/${plantId}/quantity`);

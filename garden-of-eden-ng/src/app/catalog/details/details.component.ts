@@ -15,9 +15,9 @@ export class DetailsComponent implements OnInit {
 
   auth = getAuth();
   currUser: boolean = false;
-  userId: string | undefined = '';
+  userId: string = '';
   liked: boolean = false;
-  email: string | undefined | null = "";
+  email: string = "";
 
   plant: Plant = {
     name: '',
@@ -39,31 +39,18 @@ export class DetailsComponent implements OnInit {
 
   ) { }
 
-  onLike(plantId: string, plantName: string, imageUrl: string, price: number): void {
-
-    onAuthStateChanged(this.auth, (user) => {
-      this.userId = user?.uid;
-      this.email = user?.email;
-      this.storeService.addToFavourites(plantId, plantName, imageUrl, price, this.userId, this.email);
-    });
-
-    console.log("i clicked");
-  }
-
-  onCartClick(plantId: string, name: string, imageUrl: string, price: number): void {
-    this.storeService.addToCart(plantId, this.userId, name, imageUrl, price);
-  }
-
   ngOnInit(): void {
     onAuthStateChanged(this.auth, (user) => {
       if (user) {
         this.currUser = true;
         this.userId = user?.uid;
+        this.email = user?.email ? user?.email : "";
 
       } else {
         this.currUser = false;
       }
     });
+
     this.detailsService.getSinglePlant(this.plantId)
       .subscribe({
         next: (plant) => {
@@ -74,6 +61,19 @@ export class DetailsComponent implements OnInit {
           console.log(e.message);
         }
       })
+  }
+
+  onHeartClick(plantId: string, plantName: string, imageUrl: string, price: number): void {
+
+    this.storeService.addToFavourites(plantId, plantName, imageUrl, price, this.userId, this.email);
+
+    console.log("i clicked");
+  }
+
+  onCartClick(plantId: string, name: string, imageUrl: string, price: number): void {
+
+    this.storeService.addToCart(plantId, this.userId, name, imageUrl, price);
+
   }
 
 }

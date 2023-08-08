@@ -4,6 +4,7 @@ import { Plant } from 'src/types';
 import { Router } from '@angular/router';
 import { AppService } from 'src/app/app.service';
 import { getAuth, onAuthStateChanged } from '@angular/fire/auth';
+import { StoreService } from 'src/app/store/store.service';
 
 @Component({
   selector: 'app-catalog',
@@ -16,12 +17,15 @@ export class CatalogComponent implements OnInit {
 
   plants: Plant[] = [];
   auth = getAuth();
+  userId: string = "";
   currUser: boolean = false;
   searchWord: string = "";
+  email: string = "";
 
   constructor(
     private catalogService: CatalogService,
     private appService: AppService,
+    private storeService: StoreService,
     private router: Router
   ) { }
 
@@ -30,6 +34,8 @@ export class CatalogComponent implements OnInit {
     onAuthStateChanged(this.auth, (user) => {
       if (user) {
         this.currUser = true;
+        this.userId = user?.uid;
+        this.email = user?.email ? user.email : "";
       } else {
         this.currUser = false;
       }
@@ -63,6 +69,14 @@ export class CatalogComponent implements OnInit {
 
   redirectToDetails(event: Event, id: string): void {
     this.router.navigate([`/${id}/details`])
+  }
+
+  onHeartClick(plantId: string, name: string, imageUrl: string, price: number) {
+    this.storeService.addToFavourites(plantId, name, imageUrl, price, this.userId, this.email);
+  }
+
+  onCartClick(plantId: string, name: string, imageUrl: string, price: number) {
+    this.storeService.addToCart(plantId, this.userId, name, imageUrl, price);
   }
 }
 
