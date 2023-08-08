@@ -1,3 +1,8 @@
+interface Like {
+    email: string,
+    id: string
+}
+
 export interface Plant {
     name: string;
     price: number;
@@ -11,17 +16,8 @@ export interface Plant {
     likes?: { [key: string]: Like }
 }
 
-interface Like {
-    email: string,
-    id: string
-}
-
 export interface PlantObject {
     [key: string]: Plant
-}
-
-export interface LikedPlantObject {
-    [key: string]: LikedPlant
 }
 
 export interface LikedPlant {
@@ -29,6 +25,22 @@ export interface LikedPlant {
     name: string,
     imageUrl: string,
     price: number
+}
+
+export interface LikedPlantObject {
+    [key: string]: LikedPlant
+}
+
+export interface PlantInCart {
+    id: string,
+    name: string,
+    imageUrl: string,
+    price: number,
+    quantity: number
+}
+
+export interface PlantInCartObject {
+    [key: string]: PlantInCart
 }
 
 
@@ -49,10 +61,7 @@ export interface User {
     email: string;
     password: string;
     id: string;
-    favourites?: { [key: string]: FavouritesData };
+    favourites?: { [key: string]: LikedPlantObject };
+    cart?: { [key: string]: PlantInCartObject }
 }
 
-interface FavouritesData {
-    id: string;
-    name: string;
-}
