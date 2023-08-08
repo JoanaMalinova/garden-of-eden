@@ -1,6 +1,6 @@
 <div class="catalog-wrapper">
-    <article class="catalog-card" *ngFor="let plant of plants" (click)="redirectToDetails($event, plant.id)">
-        <div class="catalog-img-holder">
+    <article class="catalog-card" *ngFor="let plant of plants">
+        <div class="catalog-img-holder" (click)="redirectToDetails($event, plant.id)">
             <img src="{{plant.imageUrl}}" alt="plant-image" class="thumbnail">
         </div>
         <section>

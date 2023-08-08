@@ -7,7 +7,8 @@
             </div>
             <section>
                 <span class="parisienne plant-name">{{plant.name}}</span>
-                <p class="plant-price">{{plant.price}} BGN<span><button (click)="onCartClick(plant.id)"><i
+                <p class="plant-price">{{plant.price}} BGN<span><button
+                            (click)="onCartClick(plant.id, plant.name, plant.imageUrl, plant.price)"><i
                                 class="fa-solid fa-basket-shopping"></i></button><button
                             (click)="onTrashClick(plant.id)"><i class="fa-solid fa-trash-can"></i></button></span></p>
             </section>

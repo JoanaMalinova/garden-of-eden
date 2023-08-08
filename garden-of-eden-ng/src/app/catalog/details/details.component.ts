@@ -50,8 +50,8 @@ export class DetailsComponent implements OnInit {
     console.log("i clicked");
   }
 
-  onCartAdd(plantId: string): void {
-    this.storeService.addToCart(plantId);
+  onCartClick(plantId: string, name: string, imageUrl: string, price: number): void {
+    this.storeService.addToCart(plantId, this.userId, name, imageUrl, price);
   }
 
   ngOnInit(): void {

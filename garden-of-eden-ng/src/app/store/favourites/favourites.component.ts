@@ -48,8 +48,8 @@ export class FavouritesComponent implements OnInit {
     this.router.navigate([`/${id}/details`])
   }
 
-  onCartClick(plantId: string): void {
-    this.storeService.addToCart(plantId)
+  onCartClick(plantId: string, name: string, imageUrl: string, price: number): void {
+    this.storeService.addToCart(plantId, this.userId, name, imageUrl, price);
   }
 
   onTrashClick(plantId: string,): void {

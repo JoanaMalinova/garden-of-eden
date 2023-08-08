@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Database, getDatabase, ref, set, onValue, remove } from 'firebase/database';
 import { FirebaseApp } from '@angular/fire/app';
-import { LikedPlantObject } from 'src/types';
+import { LikedPlantObject, PlantInCartObject } from 'src/types';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
@@ -62,8 +62,24 @@ export class StoreService {
     }
   }
 
-  addToCart(plantId: string): void {
+  async addToCart(plantId: string, userId: string | undefined, plantName: string, imageUrl: string, price: number): Promise<void> {
 
+    const userCartRef = ref(this.db, `users/${userId}/cart/${plantId}`);
+    const quantityRef = ref(this.db, `users/${userId}/cart/${plantId}/qunatity`)
+
+    await this.checkIfExists(userCartRef);
+
+    if (!this.exists) {
+      await set(userCartRef, {
+        id: plantId,
+        name: plantName,
+        imageUrl: imageUrl,
+        price: price,
+        quantity: 1
+      })
+    } else {
+
+    }
   }
 
   async checkIfExists(reference: any): Promise<void> {
@@ -79,8 +95,16 @@ export class StoreService {
   getAllLiked(userId: string): Observable<LikedPlantObject> {
 
     const url = `https://garden-of-eden-406ae-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}/favourites.json`;
+
     return this.http.get<LikedPlantObject>(url);
 
+  }
+
+  getAllInCart(userId: string): Observable<PlantInCartObject> {
+
+    const url = `https://garden-of-eden-406ae-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}/cart.json`;
+
+    return this.http.get<PlantInCartObject>(url)
   }
 
   deleteLiked(plantId: string, userId: string | undefined): void {
@@ -91,8 +115,6 @@ export class StoreService {
       .catch(() => {
         console.log('Error removing path')
       });
-
-    this.router.navigate(['/favourites']);
   }
 
 }

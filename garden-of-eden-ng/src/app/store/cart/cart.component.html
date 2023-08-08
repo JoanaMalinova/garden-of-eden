@@ -10,48 +10,25 @@
             <th>Price</th>
         </thead>
         <tbody>
-            <tr>
+            <tr *ngFor="let plant of plants">
                 <td>
                     <div class="cart-image-holder">
-                        <img src="https://d2r5uf6odu3th4.cloudfront.net/cuttings/public/CPD030.jpg" alt="">
+                        <img src="{{plant.imageUrl}}" alt="">
                     </div>
                 </td>
                 <td>
-                    <p>Pelargonium peltatum</p>
+                    <p>{{plant.name}}</p>
                 </td>
                 <td>
                     <div class="cart-button-div">
                         <button>-</button>
-                        <span>1</span>
+                        <span>{{plant.quantity}}</span>
                         <button>+</button>
                     </div>
                 </td>
                 <td>
                     <div class="table-price">
-                        <span>22 BGN</span>
-                        <button class="unset"><i class="fa-solid fa-trash-can"></i></button>
-                    </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <div class="cart-image-holder">
-                        <img src="https://d2r5uf6odu3th4.cloudfront.net/cuttings/public/CPD030.jpg" alt="">
-                    </div>
-                </td>
-                <td>
-                    <p>Pelargonium peltatum</p>
-                </td>
-                <td>
-                    <div class="cart-button-div">
-                        <button>-</button>
-                        <span>1</span>
-                        <button>+</button>
-                    </div>
-                </td>
-                <td>
-                    <div class="table-price">
-                        <span>22 BGN</span>
+                        <span>{{plant.price}} BGN</span>
                         <button class="unset"><i class="fa-solid fa-trash-can"></i></button>
                     </div>
                 </td>
