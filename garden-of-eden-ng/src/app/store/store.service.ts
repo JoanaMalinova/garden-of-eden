@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Database, getDatabase, ref, set, onValue, remove } from 'firebase/database';
+import { Database, getDatabase, ref, set, onValue, remove, get, child } from 'firebase/database';
 import { FirebaseApp } from '@angular/fire/app';
 import { LikedPlantObject, PlantInCartObject } from 'src/types';
 import { Observable } from 'rxjs';
@@ -64,7 +64,6 @@ export class StoreService {
   async addToCart(plantId: string, userId: string, plantName: string, imageUrl: string, price: number): Promise<void> {
 
     const userCartRef = ref(this.db, `users/${userId}/cart/${plantId}`);
-    const quantityRef = ref(this.db, `users/${userId}/cart/${plantId}/quantity`);
 
     onValue(userCartRef, (snapshot) => {
       this.exists = snapshot.exists();
@@ -82,12 +81,7 @@ export class StoreService {
       })
 
     } else {
-      console.log("im in");
-      onValue(quantityRef, (snapshot) => {
-        const currQuantity = snapshot.val();
-        console.log(currQuantity);
-        set(quantityRef, currQuantity + 1);
-      });
+      this.addQuantity(userId, plantId);
     }
   }
 
@@ -123,6 +117,30 @@ export class StoreService {
     } catch (err) {
       console.error(err);
     }
+  }
+
+  addQuantity(userId: string, plantId: string): void {
+    const dbRef = ref(this.db);
+    const url = `users/${userId}/cart/${plantId}/quantity`;
+    get(child(dbRef, url)).then((snapshot) => {
+      const quantity: number = snapshot.val();
+      set(ref(this.db, url), quantity + 1)
+    }).catch((error) => {
+      console.error(error);
+    });
+  }
+
+  reduceQuantity(userId: string, plantId: string): void {
+    const dbRef = ref(this.db);
+    const url = `users/${userId}/cart/${plantId}/quantity`;
+    get(child(dbRef, url)).then((snapshot) => {
+      const quantity: number = snapshot.val();
+      if (quantity > 1) {
+        set(ref(this.db, url), quantity - 1)
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
   }
 
 }

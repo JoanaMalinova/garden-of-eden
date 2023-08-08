@@ -24,9 +24,9 @@
                 </td>
                 <td>
                     <div class="cart-button-div">
-                        <button>-</button>
+                        <button (click)="onMinus(plant.id)">-</button>
                         <span>{{plant.quantity}}</span>
-                        <button>+</button>
+                        <button (click)="onPlus(plant.id)">+</button>
                     </div>
                 </td>
                 <td>

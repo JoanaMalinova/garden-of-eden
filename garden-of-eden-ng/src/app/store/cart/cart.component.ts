@@ -56,4 +56,12 @@ export class CartComponent implements OnInit {
   onImageClick(id: string): void {
     this.router.navigate([`${id}/details`]);
   }
+
+  onPlus(plantId: string) {
+    this.storeService.addQuantity(this.userId, plantId);
+  }
+
+  onMinus(plantId: string) {
+    this.storeService.reduceQuantity(this.userId, plantId);
+  }
 }
