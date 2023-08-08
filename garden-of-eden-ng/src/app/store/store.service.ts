@@ -4,7 +4,6 @@ import { FirebaseApp } from '@angular/fire/app';
 import { LikedPlantObject, PlantInCartObject } from 'src/types';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -18,10 +17,8 @@ export class StoreService {
   constructor(
     private app: FirebaseApp,
     private http: HttpClient,
-    private router: Router
   ) {
     this.db = getDatabase(this.app);
-
   }
 
   async addToFavourites(
@@ -36,7 +33,9 @@ export class StoreService {
     const userFavouritesRef = ref(this.db, `users/${userId}/favourites/${plantId}`);
     const plantsLikesRef = ref(this.db, `plants/${plantId}/likes/${userId}`);
 
-    await this.checkIfExists(userFavouritesRef);
+    onValue(userFavouritesRef, ((snapshot) => {
+      this.exists = snapshot.exists();
+    }))
 
     if (this.exists) {
 
@@ -65,9 +64,13 @@ export class StoreService {
   async addToCart(plantId: string, userId: string | undefined, plantName: string, imageUrl: string, price: number): Promise<void> {
 
     const userCartRef = ref(this.db, `users/${userId}/cart/${plantId}`);
-    const quantityRef = ref(this.db, `users/${userId}/cart/${plantId}/qunatity`)
+    const quantityRef = ref(this.db, `users/${userId}/cart/${plantId}/quantity`);
 
-    await this.checkIfExists(userCartRef);
+    onValue(userCartRef, (snapshot) => {
+      this.exists = snapshot.exists();
+    });
+
+    console.log(this.exists);
 
     if (!this.exists) {
       await set(userCartRef, {
@@ -77,19 +80,15 @@ export class StoreService {
         price: price,
         quantity: 1
       })
+
     } else {
-
+      console.log("im in");
+      onValue(quantityRef, (snapshot) => {
+        const currQuantity = snapshot.val();
+        console.log(currQuantity);
+        set(quantityRef, currQuantity + 1);
+      });
     }
-  }
-
-  async checkIfExists(reference: any): Promise<void> {
-
-    await onValue(reference, (snapshot) => {
-
-      this.exists = snapshot.exists();
-
-    })
-
   }
 
   getAllLiked(userId: string): Observable<LikedPlantObject> {
@@ -115,6 +114,15 @@ export class StoreService {
       .catch(() => {
         console.log('Error removing path')
       });
+  }
+
+  deleteFromCart(plantId: string, userId: string | undefined): void {
+
+    try {
+      remove(ref(this.db, `users/${userId}/cart/${plantId}`));
+    } catch (err) {
+      console.error(err);
+    }
   }
 
 }

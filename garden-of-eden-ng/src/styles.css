@@ -92,9 +92,11 @@ html {
 }
 
 body {
-    min-height: 100vh;
+    /* min-height: 100vh;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; */
+    position: relative;
+    min-height: 100vh;
 }
 
 .parisienne {
@@ -148,6 +150,7 @@ button:hover {
 
 main {
     color: white;
+    padding-bottom: 2.5rem;
 }
 
 .bold {

@@ -59,7 +59,7 @@ export class DetailsComponent implements OnInit {
       if (user) {
         this.currUser = true;
         this.userId = user?.uid;
-        console.log(this.userId);
+
       } else {
         this.currUser = false;
       }
@@ -68,9 +68,7 @@ export class DetailsComponent implements OnInit {
       .subscribe({
         next: (plant) => {
           this.plant = plant;
-          console.log(this.userId)
           this.liked = plant.likes?.[`${this.userId}`] ? true : false;
-          console.log(this.liked);
         },
         error: (e) => {
           console.log(e.message);

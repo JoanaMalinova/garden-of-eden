@@ -14,6 +14,7 @@ export class CartComponent implements OnInit {
   auth = getAuth();
   userId: string = '';
   plants: PlantInCart[] = [];
+  cartIsEmpty = false;
 
   constructor(
     private router: Router,
@@ -33,7 +34,12 @@ export class CartComponent implements OnInit {
         this.storeService.getAllInCart(this.userId)
           .subscribe({
             next: (plants) => {
-              this.plants = Object.values(plants);
+              if (plants) {
+                this.plants = Object.values(plants);
+              } else {
+                this.cartIsEmpty = true;
+              }
+
             },
             error: (e) => {
               console.log(e.message);
@@ -41,5 +47,13 @@ export class CartComponent implements OnInit {
           })
       }
     }));
+  }
+
+  onTrashClick(id: string): void {
+    this.storeService.deleteFromCart(id, this.userId);
+  }
+
+  onImageClick(id: string): void {
+    this.router.navigate([`${id}/details`]);
   }
 }
