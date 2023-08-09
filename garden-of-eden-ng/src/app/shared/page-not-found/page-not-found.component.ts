@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-page-not-found',
@@ -7,5 +8,10 @@ import { Component } from '@angular/core';
 })
 export class PageNotFoundComponent {
 
+  constructor(private location: Location) { }
+
+  toPrevoiusPage() {
+    this.location.back();
+  }
 
 }

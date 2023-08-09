@@ -84,7 +84,7 @@ export class StoreService {
           quantity: 1
         })
       } catch (err) {
-        console.error(err);
+        console.log(err);
         this.router.navigate(['/error'])
       }
     } else {
@@ -123,7 +123,7 @@ export class StoreService {
     try {
       remove(ref(this.db, `users/${userId}/cart/${plantId}`));
     } catch (err) {
-      console.error(err);
+      console.log(err);
       this.router.navigate(['/error']);
     }
   }
@@ -135,7 +135,7 @@ export class StoreService {
       const quantity: number = snapshot.val();
       set(ref(this.db, url), quantity + 1)
     }).catch((error) => {
-      console.error(error);
+      console.log(error.message);
       this.router.navigate(['/error']);
     });
   }
@@ -149,7 +149,7 @@ export class StoreService {
         set(ref(this.db, url), quantity - 1)
       }
     }).catch((error) => {
-      console.error(error);
+      console.log(error.message);
       this.router.navigate(['/error']);
     });
   }

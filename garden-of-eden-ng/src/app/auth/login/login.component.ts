@@ -27,7 +27,7 @@ export class LoginComponent {
     this.authService.login(data);
 
     this.errorMessage = this.authService.errorMessage;
-    console.log(this.errorMessage);
+
     form.reset();
     if (!this.errorMessage) {
       this.router.navigate(["/catalog"]);

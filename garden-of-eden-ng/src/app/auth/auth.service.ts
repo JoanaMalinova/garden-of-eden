@@ -32,14 +32,10 @@ export class AuthService {
         console.log(`${this.auth.currentUser?.displayName} successfully logged in!`);
         console.log(this.auth.currentUser);
       })
-      // .then(function (user) {
-      //   console.log(`${user.user.displayName} successfully logged in!`);
-      // })
       .catch((err) => {
         console.log(err.message);
         if (err.message == "Firebase: Error (auth/invalid-email).") {
           this.errorMessage = "Invalid email or password!";
-          console.log(this.errorMessage);
         } else {
           this.router.navigate(['/error']);
         }

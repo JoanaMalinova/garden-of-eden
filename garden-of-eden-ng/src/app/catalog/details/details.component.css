@@ -119,3 +119,16 @@
 .salmon {
     color: salmon;
 }
+
+.fa-arrow-left {
+    position: absolute;
+    top: 160px;
+    left: 50px;
+    color: black;
+    z-index: 2;
+}
+
+.fa-arrow-left:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}

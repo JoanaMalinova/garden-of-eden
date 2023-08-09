@@ -14,4 +14,5 @@ export class AppService {
   setSearchWord(searchWord: string) {
     this.searchWord.next(searchWord);
   }
+
 }

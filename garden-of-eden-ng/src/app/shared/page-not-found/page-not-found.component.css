@@ -25,6 +25,10 @@ h1 {
     font-size: 4rem;
 }
 
-a {
+span {
     color: green;
+}
+
+span:hover {
+    cursor: pointer;
 }

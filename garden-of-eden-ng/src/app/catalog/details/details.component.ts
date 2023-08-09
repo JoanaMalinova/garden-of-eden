@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Plant } from 'src/types';
 import { getAuth, onAuthStateChanged } from '@angular/fire/auth';
 import { StoreService } from 'src/app/store/store.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-details',
@@ -36,7 +37,8 @@ export class DetailsComponent implements OnInit {
     private detailsService: DetailsService,
     private route: ActivatedRoute,
     private storeService: StoreService,
-    private router: Router
+    private router: Router,
+    private location: Location
 
   ) { }
 
@@ -76,6 +78,10 @@ export class DetailsComponent implements OnInit {
 
     this.storeService.addToCart(plantId, this.userId, name, imageUrl, price);
 
+  }
+
+  onBackClick() {
+    this.location.back()
   }
 
 }
