@@ -14,7 +14,9 @@
             <div *ngIf="password.invalid && password.touched" class="alert">
                 <p>Password is required</p>
             </div>
-
+            <div *ngIf="errorMessage" class="alert">
+                <p>{{errorMessage}}</p>
+            </div>
             <button type="submit" [disabled]="loginForm.invalid">Sign in</button>
 
             <p>Not registered yet?

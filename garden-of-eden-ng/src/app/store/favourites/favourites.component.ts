@@ -37,6 +37,7 @@ export class FavouritesComponent implements OnInit {
               },
               error: (e) => {
                 console.log(e.message);
+                this.router.navigate(['/error']);
               }
             }
           )
@@ -45,7 +46,7 @@ export class FavouritesComponent implements OnInit {
   }
 
   redirectToDetails(event: Event, id: string): void {
-    this.router.navigate([`/${id}/details`])
+    this.router.navigate([`/${id}/details`]);
   }
 
   onCartClick(plantId: string, name: string, imageUrl: string, price: number): void {
@@ -53,7 +54,6 @@ export class FavouritesComponent implements OnInit {
   }
 
   onTrashClick(plantId: string,): void {
-    console.log('clicked trash')
     this.storeService.deleteLiked(plantId, this.userId);
   }
 

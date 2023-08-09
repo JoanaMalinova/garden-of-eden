@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit {
         },
         error: (e) => {
           console.log(e.message);
+          this.router.navigate(['/error']);
         }
       })
 

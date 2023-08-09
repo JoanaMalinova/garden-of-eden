@@ -38,6 +38,7 @@ const routes: Routes = [
   },
   { path: ':plantId/details', component: DetailsComponent },
   { path: 'logout', redirectTo: 'home' },
+  { path: 'error', component: PageNotFoundComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 

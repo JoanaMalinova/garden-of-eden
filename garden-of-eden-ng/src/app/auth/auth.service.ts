@@ -3,6 +3,7 @@ import { LoginData } from 'src/types';
 import { getAuth, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, Auth, signOut, onAuthStateChanged, User } from "@angular/fire/auth";
 import { FirebaseApp } from '@angular/fire/app';
 import { Database, getDatabase, ref, set } from "firebase/database";
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,22 +14,35 @@ export class AuthService {
   db: Database;
   user: User | null;
   isAuthenticated: boolean = false;
+  errorMessage: string = "";
 
-  constructor(private app: FirebaseApp) {
-    this.auth = getAuth(this.app),
-      this.db = getDatabase(this.app),
-      this.user = this.auth.currentUser;
+  constructor(
+    private router: Router,
+    private app: FirebaseApp
+  ) {
+    this.auth = getAuth(this.app);
+    this.db = getDatabase(this.app);
+    this.user = this.auth.currentUser;
   }
 
   login(userData: LoginData): void {
+
     signInWithEmailAndPassword(this.auth, userData.email, userData.password)
       .then(() => {
         console.log(`${this.auth.currentUser?.displayName} successfully logged in!`);
         console.log(this.auth.currentUser);
       })
+      // .then(function (user) {
+      //   console.log(`${user.user.displayName} successfully logged in!`);
+      // })
       .catch((err) => {
-        console.log(err);
-        throw new Error(err.message);
+        console.log(err.message);
+        if (err.message == "Firebase: Error (auth/invalid-email).") {
+          this.errorMessage = "Invalid email or password!";
+          console.log(this.errorMessage);
+        } else {
+          this.router.navigate(['/error']);
+        }
       })
   }
 
@@ -43,8 +57,8 @@ export class AuthService {
         });
       })
       .catch((err) => {
-        console.log(err)
-        throw new Error(err.message);
+        console.error(err.message)
+        this.router.navigate(['/error']);
       });
   }
 
@@ -53,7 +67,8 @@ export class AuthService {
       console.log("Successfully signed out!");
       console.log(this.auth.currentUser)
     }).catch((error) => {
-      console.log(error);
+      console.error(error.message);
+      this.router.navigate(['/error']);
     });
   }
 

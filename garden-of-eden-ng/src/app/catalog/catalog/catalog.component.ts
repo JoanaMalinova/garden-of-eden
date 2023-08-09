@@ -51,6 +51,7 @@ export class CatalogComponent implements OnInit {
           },
           error: (e) => {
             console.log(e.message);
+            this.router.navigate(['/error']);
           }
         })
     } else {
@@ -61,6 +62,7 @@ export class CatalogComponent implements OnInit {
           },
           error: (e) => {
             console.log(e.message);
+            this.router.navigate(['/error']);
           }
         })
     }

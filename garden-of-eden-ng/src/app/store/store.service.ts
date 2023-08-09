@@ -4,6 +4,7 @@ import { FirebaseApp } from '@angular/fire/app';
 import { LikedPlantObject, PlantInCartObject } from 'src/types';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,7 @@ export class StoreService {
   constructor(
     private app: FirebaseApp,
     private http: HttpClient,
+    private router: Router
   ) {
     this.db = getDatabase(this.app);
   }
@@ -55,7 +57,8 @@ export class StoreService {
           email
         })
           .catch(() => {
-            console.log('Error is in set method!!')
+            console.log('Favourites were not added successfully!');
+            this.router.navigate(['/error']);
           })
       ])
     }
@@ -72,14 +75,18 @@ export class StoreService {
     console.log(this.exists);
 
     if (!this.exists) {
-      await set(userCartRef, {
-        id: plantId,
-        name: plantName,
-        imageUrl: imageUrl,
-        price: price,
-        quantity: 1
-      })
-
+      try {
+        await set(userCartRef, {
+          id: plantId,
+          name: plantName,
+          imageUrl: imageUrl,
+          price: price,
+          quantity: 1
+        })
+      } catch (err) {
+        console.error(err);
+        this.router.navigate(['/error'])
+      }
     } else {
       this.addQuantity(userId, plantId);
     }
@@ -106,7 +113,8 @@ export class StoreService {
       remove(ref(this.db, `plants/${plantId}/likes/${userId}`))
     ])
       .catch(() => {
-        console.log('Error removing path')
+        console.log('Error removing favourites!')
+        this.router.navigate(['/error']);
       });
   }
 
@@ -116,6 +124,7 @@ export class StoreService {
       remove(ref(this.db, `users/${userId}/cart/${plantId}`));
     } catch (err) {
       console.error(err);
+      this.router.navigate(['/error']);
     }
   }
 
@@ -127,6 +136,7 @@ export class StoreService {
       set(ref(this.db, url), quantity + 1)
     }).catch((error) => {
       console.error(error);
+      this.router.navigate(['/error']);
     });
   }
 
@@ -140,6 +150,7 @@ export class StoreService {
       }
     }).catch((error) => {
       console.error(error);
+      this.router.navigate(['/error']);
     });
   }
 

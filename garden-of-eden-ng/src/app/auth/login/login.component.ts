@@ -3,6 +3,7 @@ import { NgForm } from "@angular/forms"
 import { LoginData } from 'src/types';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+// import { FirebaseError } from '@angular/fire/app';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +12,8 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
 
+  errorMessage: string = "";
+
   constructor(
     private authService: AuthService,
     private router: Router
@@ -18,16 +21,16 @@ export class LoginComponent {
   }
 
   onSubmit(form: NgForm): void {
+
     const data: LoginData = form.value;
 
-    try {
-      this.authService.login(data);
-      form.reset();
+    this.authService.login(data);
+
+    this.errorMessage = this.authService.errorMessage;
+    console.log(this.errorMessage);
+    form.reset();
+    if (!this.errorMessage) {
       this.router.navigate(["/catalog"]);
-
-    } catch (error) {
-      console.error(error);
     }
-
   }
 }

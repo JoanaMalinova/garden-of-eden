@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DetailsService } from './details.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Plant } from 'src/types';
 import { getAuth, onAuthStateChanged } from '@angular/fire/auth';
 import { StoreService } from 'src/app/store/store.service';
@@ -36,6 +36,7 @@ export class DetailsComponent implements OnInit {
     private detailsService: DetailsService,
     private route: ActivatedRoute,
     private storeService: StoreService,
+    private router: Router
 
   ) { }
 
@@ -59,6 +60,7 @@ export class DetailsComponent implements OnInit {
         },
         error: (e) => {
           console.log(e.message);
+          this.router.navigate(['/error']);
         }
       })
   }

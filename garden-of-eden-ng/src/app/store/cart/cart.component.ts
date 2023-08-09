@@ -43,10 +43,10 @@ export class CartComponent implements OnInit {
               } else {
                 this.cartIsEmpty = true;
               }
-
             },
             error: (e) => {
               console.log(e.message);
+              this.router.navigate(['/error']);
             }
           })
       }
