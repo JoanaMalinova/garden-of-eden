@@ -1,7 +1,6 @@
 import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } from '@angular/router';
 import { AuthService } from './auth.service';
 import { Injectable, inject } from '@angular/core';
-import { Location } from '@angular/common';
 
 
 @Injectable({
@@ -12,29 +11,31 @@ class PermissionsService {
 
     constructor(
         private authService: AuthService,
-        private router: Router,
-        private location: Location
+        private router: Router
     ) { }
 
     canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
 
-        // const currPath = this.location.path();
+        const currPath = next.url[0].path;
+        console.log(currPath);
+        const isAuthenticated = this.authService.checkLogin();
+        console.log(isAuthenticated);
 
-        if (this.authService.checkLogin()) {
+        //!!!!!!!!!za6to samo za login kogato si loggnat  isAuthenticated e greshno ????
 
-            // if (currPath == "/login" || currPath == "/register") {
-            //     this.router.navigate(['/home']);
+        if (isAuthenticated) {
 
-            //     return false;
-            // }
+            if (currPath == "login" || currPath == "register") {
+                this.router.navigate(['/home']);
 
+                return false;
+            }
             return true;
         }
-        // if (currPath == "/login" || currPath == "/register") {
 
-        //     return true;
-        // }
-
+        if (currPath == "login" || currPath == "register") {
+            return true;
+        }
         this.router.navigate(['/login']);
 
         return false;
@@ -44,3 +45,4 @@ class PermissionsService {
 export const AuthGuard: CanActivateFn = (next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean => {
     return inject(PermissionsService).canActivate(next, state);
 }
+

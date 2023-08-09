@@ -1,0 +1,30 @@
+.error-wrapper {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 10rem;
+}
+
+.img-wrapper {
+    height: 100%;
+}
+
+.img-wrapper img {
+    object-fit: contain;
+}
+
+p {
+    color: black;
+    text-align: left;
+    font-size: 50px;
+}
+
+h1 {
+    color: black;
+    text-align: center;
+    font-size: 4rem;
+}
+
+a {
+    color: green;
+}
