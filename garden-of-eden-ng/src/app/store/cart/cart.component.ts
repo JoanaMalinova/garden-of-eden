@@ -14,7 +14,8 @@ export class CartComponent implements OnInit {
   auth = getAuth();
   userId: string = '';
   plants: PlantInCart[] = [];
-  cartIsEmpty = false;
+  cartIsEmpty: boolean = false;
+  totalPrice: number = 0;
 
   constructor(
     private router: Router,
@@ -36,6 +37,9 @@ export class CartComponent implements OnInit {
             next: (plants) => {
               if (plants) {
                 this.plants = Object.values(plants);
+                this.plants.forEach((plant) => {
+                  this.totalPrice += plant.quantity * plant.price
+                })
               } else {
                 this.cartIsEmpty = true;
               }

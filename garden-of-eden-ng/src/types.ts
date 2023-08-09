@@ -36,7 +36,7 @@ export interface PlantInCart {
     name: string,
     imageUrl: string,
     price: number,
-    quantity: number
+    quantity: number,
 }
 
 export interface PlantInCartObject {

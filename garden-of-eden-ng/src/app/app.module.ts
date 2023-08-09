@@ -15,9 +15,7 @@ import { StoreModule } from './store/store.module';
 import { environment } from 'src/environments/environment';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
-// import { AngularFireModule } from '@angular/fire/compat';
 import { getAuth, provideAuth } from '@angular/fire/auth';
-
 
 @NgModule({
   declarations: [
@@ -34,7 +32,6 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
     CoreModule,
     SharedModule,
     StoreModule,
-    // AngularFireModule.initializeApp(environment.firebase),
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     AngularFireDatabaseModule

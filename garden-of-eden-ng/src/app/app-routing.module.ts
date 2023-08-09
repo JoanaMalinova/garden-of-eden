@@ -9,16 +9,33 @@ import { FavouritesComponent } from './store/favourites/favourites.component';
 import { CartComponent } from './store/cart/cart.component';
 import { DetailsComponent } from './catalog/details/details.component';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'about', component: AboutComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
+  {
+    path: 'login',
+    // canActivate: [AuthGuard],
+    component: LoginComponent
+  },
+  {
+    path: 'register',
+    // canActivate: [AuthGuard],
+    component: RegisterComponent
+  },
   { path: 'catalog', component: CatalogComponent },
-  { path: 'favourites', component: FavouritesComponent },
-  { path: 'cart', component: CartComponent },
+  {
+    path: 'favourites',
+    canActivate: [AuthGuard],
+    component: FavouritesComponent
+  },
+  {
+    path: 'cart',
+    canActivate: [AuthGuard],
+    component: CartComponent
+  },
   { path: ':plantId/details', component: DetailsComponent },
   { path: 'logout', redirectTo: 'home' },
   { path: '**', component: PageNotFoundComponent }

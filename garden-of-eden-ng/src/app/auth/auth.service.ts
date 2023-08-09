@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LoginData } from 'src/types';
-import { getAuth, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, Auth, signOut } from "@angular/fire/auth";
+import { getAuth, createUserWithEmailAndPassword, updateProfile, signInWithEmailAndPassword, Auth, signOut, onAuthStateChanged, User } from "@angular/fire/auth";
 import { FirebaseApp } from '@angular/fire/app';
 import { Database, getDatabase, ref, set } from "firebase/database";
 
@@ -11,10 +11,13 @@ export class AuthService {
 
   auth: Auth;
   db: Database;
+  user: User | null;
+  isAuthenticated: boolean = false;
 
   constructor(private app: FirebaseApp) {
     this.auth = getAuth(this.app),
-      this.db = getDatabase(this.app)
+      this.db = getDatabase(this.app),
+      this.user = this.auth.currentUser;
   }
 
   login(userData: LoginData): void {
@@ -52,6 +55,24 @@ export class AuthService {
     }).catch((error) => {
       console.log(error);
     });
+  }
+
+  getUser(): User | null {
+    onAuthStateChanged(this.auth, (user) => {
+      this.user = user;
+    })
+    return this.user;
+  }
+
+  checkLogin(): boolean {
+    onAuthStateChanged(this.auth, (user) => {
+      if (user) {
+        this.isAuthenticated = true;
+      } else {
+        this.isAuthenticated = false;
+      }
+    });
+    return this.isAuthenticated;
   }
 
 }

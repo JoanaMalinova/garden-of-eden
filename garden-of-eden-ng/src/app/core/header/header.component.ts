@@ -33,6 +33,7 @@ export class HeaderComponent implements OnInit {
   onLogout(): void {
     this.authService.logout();
   }
+
   ngOnInit(): void {
     onAuthStateChanged(this.auth, (user) => {
       if (user) {
