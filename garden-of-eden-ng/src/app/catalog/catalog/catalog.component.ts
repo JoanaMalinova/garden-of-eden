@@ -21,6 +21,7 @@ export class CatalogComponent implements OnInit {
   currUser: boolean = false;
   searchWord: string = "";
   email: string = "";
+  liked: string[] = [];
 
   constructor(
     private catalogService: CatalogService,
@@ -36,6 +37,18 @@ export class CatalogComponent implements OnInit {
         this.currUser = true;
         this.userId = user?.uid;
         this.email = user?.email ? user.email : "";
+        this.storeService.getAllLiked(this.userId)
+          .subscribe({
+            next: (likedPlants) => {
+              console.log(likedPlants);
+              this.liked = Object.keys(likedPlants);
+              console.log(this.liked);
+            },
+            error: (e) => {
+              console.log(e.message);
+              this.router.navigate(['/error']);
+            }
+          });
       } else {
         this.currUser = false;
       }
@@ -43,6 +56,8 @@ export class CatalogComponent implements OnInit {
 
     this.appService.getSearchWord.subscribe(word => this.searchWord = word);
     console.log(this.searchWord);
+
+
     if (this.searchWord) {
       this.catalogService.getSerachedFor(this.searchWord)
         .subscribe({
@@ -74,6 +89,11 @@ export class CatalogComponent implements OnInit {
 
   onHeartClick(plantId: string, name: string, imageUrl: string, price: number) {
     this.storeService.addToFavourites(plantId, name, imageUrl, price, this.userId, this.email);
+    if (this.liked.includes(plantId)) {
+      this.liked = this.liked.filter(e => e != plantId);
+    } else {
+      this.liked.push(plantId);
+    }
   }
 
   onCartClick(plantId: string, name: string, imageUrl: string, price: number) {

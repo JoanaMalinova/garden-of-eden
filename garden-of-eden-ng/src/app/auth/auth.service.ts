@@ -68,12 +68,9 @@ export class AuthService {
     });
   }
 
-  getUser(): User | null {
-    onAuthStateChanged(this.auth, (user) => {
-      this.user = user;
-    })
-    return this.user;
-  }
+  // getUser() {
+
+  // }
 
   checkLogin(): boolean {
     onAuthStateChanged(this.auth, (user) => {

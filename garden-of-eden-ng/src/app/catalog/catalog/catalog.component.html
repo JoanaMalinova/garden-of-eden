@@ -6,7 +6,8 @@
         <section>
             <span class="parisienne plant-name">{{plant.name}}</span>
             <p class="plant-price">{{plant.price}} BGN<span *ngIf="currUser"><button class="like-btn"
-                        (click)="onHeartClick(plant.id, plant.name,plant.imageUrl,plant.price)"><i
+                        (click)="onHeartClick(plant.id, plant.name,plant.imageUrl,plant.price)"
+                        [ngClass]="liked.includes(plant.id)? 'salmon' :''"><i
                             class="fa-regular fa-heart"></i></button><button
                         (click)="onCartClick(plant.id, plant.name,plant.imageUrl,plant.price)" class="add-to-cart"><i
                             class="fa-solid fa-basket-shopping"></i></button></span></p>
