@@ -8,8 +8,6 @@ import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../auth/auth.service';
 
-
-
 @NgModule({
   declarations: [
     HeaderComponent,

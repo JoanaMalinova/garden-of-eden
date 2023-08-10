@@ -1,16 +1,9 @@
-.loader-wrapper {
-    height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: white
-}
-
-.img-holder {
-    height: 20%;
-}
-
-.img-holder img {
+img {
     object-fit: contain;
+    width: 10%;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
