@@ -72,15 +72,12 @@ export class DetailsComponent implements OnInit {
 
     this.storeService.addToFavourites(plantId, plantName, imageUrl, price, this.userId, this.email);
     this.liked = !this.liked;
-
-    console.log("i clicked");
   }
 
   onCartClick(plantId: string, name: string, imageUrl: string, price: number): void {
 
     this.storeService.addToCart(plantId, this.userId, name, imageUrl, price);
     this.addedToCart = !this.addedToCart;
-
   }
 
   onBackClick() {

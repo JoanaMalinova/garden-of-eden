@@ -57,6 +57,7 @@ export class CartComponent implements OnInit {
 
   onTrashClick(id: string): void {
     this.storeService.deleteFromCart(id, this.userId);
+    this.plants = this.plants.filter(e => e.id !== id);
   }
 
   onImageClick(id: string): void {
