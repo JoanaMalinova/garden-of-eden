@@ -66,7 +66,11 @@ export class CartComponent implements OnInit {
 
   onTrashClick(id: string): void {
     this.storeService.deleteFromCart(id, this.userId);
+    const curr = this.plants.find(e => e.id === id)
     this.plants = this.plants.filter(e => e.id !== id);
+    if (curr) {
+      this.totalPrice -= curr.quantity * curr.price
+    }
   }
 
   onImageClick(id: string): void {
