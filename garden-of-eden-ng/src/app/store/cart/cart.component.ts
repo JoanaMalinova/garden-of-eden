@@ -79,7 +79,7 @@ export class CartComponent implements OnInit {
 
     const currPlant = this.itemsQuantity.find(e => e.id === plantId);
     this.itemsQuantity.filter(e => e.id !== plantId);
-    if (currPlant) {
+    if (currPlant && currPlant.quantity > 1) {
       currPlant.quantity -= 1;
       this.itemsQuantity.push(currPlant);
     }

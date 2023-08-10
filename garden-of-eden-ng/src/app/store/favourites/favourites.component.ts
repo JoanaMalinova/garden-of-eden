@@ -73,6 +73,7 @@ export class FavouritesComponent implements OnInit {
 
   onTrashClick(plantId: string,): void {
     this.storeService.deleteLiked(plantId, this.userId);
+    this.plants = this.plants.filter(e => e.id !== plantId);
   }
 
 }

@@ -20,7 +20,6 @@ export class DetailsComponent implements OnInit {
   liked: boolean = false;
   addedToCart: boolean = false;
   email: string = "";
-
   plant: Plant = {
     name: '',
     price: 0,
