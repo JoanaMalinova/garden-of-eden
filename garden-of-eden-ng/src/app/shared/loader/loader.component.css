@@ -1,0 +1,16 @@
+.loader-wrapper {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white
+}
+
+.img-holder {
+    height: 20%;
+}
+
+.img-holder img {
+    object-fit: contain;
+}

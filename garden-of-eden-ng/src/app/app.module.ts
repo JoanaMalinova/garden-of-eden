@@ -3,7 +3,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import { CoreModule } from './core/core.module';
@@ -16,6 +16,8 @@ import { environment } from 'src/environments/environment';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { getAuth, provideAuth } from '@angular/fire/auth';
+import { LoaderInterceptor } from './shared/loader/loader.interceptor';
+
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { getAuth, provideAuth } from '@angular/fire/auth';
     provideAuth(() => getAuth()),
     AngularFireDatabaseModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
