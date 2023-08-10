@@ -68,7 +68,6 @@ export class CatalogComponent implements OnInit {
     }
   }
 
-
   redirectToDetails(event: Event, id: string): void {
     this.router.navigate([`/${id}/details`])
   }

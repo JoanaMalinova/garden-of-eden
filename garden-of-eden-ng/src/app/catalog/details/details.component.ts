@@ -38,7 +38,7 @@ export class DetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private storeService: StoreService,
     private router: Router,
-    private location: Location
+    private location: Location,
 
   ) { }
 
@@ -70,6 +70,7 @@ export class DetailsComponent implements OnInit {
   onHeartClick(plantId: string, plantName: string, imageUrl: string, price: number): void {
 
     this.storeService.addToFavourites(plantId, plantName, imageUrl, price, this.userId, this.email);
+    this.liked = !this.liked;
 
     console.log("i clicked");
   }
