@@ -22,6 +22,7 @@ export class CatalogComponent implements OnInit {
   searchWord: string = "";
   email: string = "";
   liked: string[] = [];
+  inCart: string[] = [];
 
   constructor(
     private catalogService: CatalogService,
@@ -37,6 +38,7 @@ export class CatalogComponent implements OnInit {
         this.currUser = true;
         this.userId = user?.uid;
         this.email = user?.email ? user.email : "";
+
         this.storeService.getAllLiked(this.userId)
           .subscribe({
             next: (likedPlants) => {
@@ -47,6 +49,18 @@ export class CatalogComponent implements OnInit {
               this.router.navigate(['/error']);
             }
           });
+
+        this.storeService.getAllInCart(this.userId)
+          .subscribe({
+            next: (plantsInCart) => {
+              this.inCart = Object.keys(plantsInCart);
+            },
+            error: (e) => {
+              console.log(e.message);
+              this.router.navigate(['/error']);
+            }
+          });
+
       } else {
         this.currUser = false;
       }
@@ -86,7 +100,9 @@ export class CatalogComponent implements OnInit {
   }
 
   onHeartClick(plantId: string, name: string, imageUrl: string, price: number) {
+
     this.storeService.addToFavourites(plantId, name, imageUrl, price, this.userId, this.email);
+
     if (this.liked.includes(plantId)) {
       this.liked = this.liked.filter(e => e != plantId);
     } else {
@@ -95,7 +111,14 @@ export class CatalogComponent implements OnInit {
   }
 
   onCartClick(plantId: string, name: string, imageUrl: string, price: number) {
+
     this.storeService.addToCart(plantId, this.userId, name, imageUrl, price);
+
+    if (this.inCart.includes(plantId)) {
+      this.inCart = this.inCart.filter(e => e != plantId);
+    } else {
+      this.inCart.push(plantId);
+    }
   }
 }
 

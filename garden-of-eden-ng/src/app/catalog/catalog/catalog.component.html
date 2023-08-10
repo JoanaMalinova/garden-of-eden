@@ -9,7 +9,8 @@
                         (click)="onHeartClick(plant.id, plant.name,plant.imageUrl,plant.price)"
                         [ngClass]="liked.includes(plant.id)? 'salmon' :''"><i
                             class="fa-regular fa-heart"></i></button><button
-                        (click)="onCartClick(plant.id, plant.name,plant.imageUrl,plant.price)" class="add-to-cart"><i
+                        (click)="onCartClick(plant.id, plant.name,plant.imageUrl,plant.price)" class="add-to-cart"
+                        [ngStyle]="inCart.includes(plant.id)? {'display' :'none'}: {}"><i
                             class="fa-solid fa-basket-shopping"></i></button></span></p>
         </section>
     </article>
