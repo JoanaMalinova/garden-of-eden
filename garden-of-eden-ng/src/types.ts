@@ -13,7 +13,8 @@ export interface Plant {
     water: string;
     imageUrl: string;
     id: string;
-    likes?: { [key: string]: Like }
+    likes?: { [key: string]: Like },
+    inCart?: { [key: string]: boolean }
 }
 
 export interface PlantObject {

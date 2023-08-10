@@ -40,9 +40,7 @@ export class CatalogComponent implements OnInit {
         this.storeService.getAllLiked(this.userId)
           .subscribe({
             next: (likedPlants) => {
-              console.log(likedPlants);
               this.liked = Object.keys(likedPlants);
-              console.log(this.liked);
             },
             error: (e) => {
               console.log(e.message);

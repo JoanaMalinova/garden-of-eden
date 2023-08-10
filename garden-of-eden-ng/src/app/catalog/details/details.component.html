@@ -36,10 +36,10 @@
         <div class="buttons" *ngIf="currUser">
             <button class="like-btn" (click)="onHeartClick(plant.id, plant.name, plant.imageUrl,plant.price)"
                 [ngClass]="liked? 'salmon' :''"><i class="fa-regular fa-heart fa-xl"></i></button>
-            <button class="add-to-cart-btn" (click)="onCartClick(plant.id, plant.name, plant.imageUrl, plant.price)"><i
+            <button class="add-to-cart-btn" (click)="onCartClick(plant.id, plant.name, plant.imageUrl, plant.price)"
+                [ngStyle]="addedToCart? {'background-color' : 'white', 'color': 'dimgray'}: {}"><i
                     class="fa-solid fa-basket-shopping"></i>
-                Add to
-                cart</button>
+                {{addedToCart? 'Added to cart' :'Add to cart'}}</button>
         </div>
     </div>
 </div>

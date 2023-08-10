@@ -18,6 +18,7 @@ export class DetailsComponent implements OnInit {
   currUser: boolean = false;
   userId: string = '';
   liked: boolean = false;
+  addedToCart: boolean = false;
   email: string = "";
 
   plant: Plant = {
@@ -59,6 +60,7 @@ export class DetailsComponent implements OnInit {
         next: (plant) => {
           this.plant = plant;
           this.liked = plant.likes?.[`${this.userId}`] ? true : false;
+          this.addedToCart = plant.inCart?.[`${this.userId}`] ? true : false;
         },
         error: (e) => {
           console.log(e.message);
@@ -78,6 +80,7 @@ export class DetailsComponent implements OnInit {
   onCartClick(plantId: string, name: string, imageUrl: string, price: number): void {
 
     this.storeService.addToCart(plantId, this.userId, name, imageUrl, price);
+    this.addedToCart = !this.addedToCart;
 
   }
 

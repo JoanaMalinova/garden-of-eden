@@ -35,13 +35,13 @@ export class StoreService {
     const userFavouritesRef = ref(this.db, `users/${userId}/favourites/${plantId}`);
     const plantsLikesRef = ref(this.db, `plants/${plantId}/likes/${userId}`);
 
-    onValue(userFavouritesRef, ((snapshot) => {
+    onValue(userFavouritesRef, (snapshot) => {
       this.exists = snapshot.exists();
-    }))
+    });
 
     if (this.exists) {
 
-      this.deleteLiked(plantId, userId)
+      this.deleteLiked(plantId, userId);
 
     } else {
 
@@ -55,40 +55,41 @@ export class StoreService {
         set(plantsLikesRef, {
           id: userId,
           email
+        })])
+        .catch(() => {
+          console.log('Favourites were not added successfully!');
+          this.router.navigate(['/error']);
         })
-          .catch(() => {
-            console.log('Favourites were not added successfully!');
-            this.router.navigate(['/error']);
-          })
-      ])
     }
   }
 
-  async addToCart(plantId: string, userId: string, plantName: string, imageUrl: string, price: number): Promise<void> {
+  addToCart(plantId: string, userId: string, plantName: string, imageUrl: string, price: number): void {
 
     const userCartRef = ref(this.db, `users/${userId}/cart/${plantId}`);
+    const plantCartRef = ref(this.db, `plants/${plantId}/inCart/${userId}`);
 
     onValue(userCartRef, (snapshot) => {
       this.exists = snapshot.exists();
     });
 
-    console.log(this.exists);
-
     if (!this.exists) {
-      try {
-        await set(userCartRef, {
+
+      Promise.all([
+        set(userCartRef, {
           id: plantId,
           name: plantName,
           imageUrl: imageUrl,
           price: price,
           quantity: 1
+        }),
+        set(plantCartRef, true)])
+        .catch((err) => {
+          console.log(err);
+          this.router.navigate(['/error'])
         })
-      } catch (err) {
-        console.log(err);
-        this.router.navigate(['/error'])
-      }
+
     } else {
-      this.addQuantity(userId, plantId);
+      this.deleteFromCart(plantId, userId)
     }
   }
 
@@ -120,38 +121,47 @@ export class StoreService {
 
   deleteFromCart(plantId: string, userId: string | undefined): void {
 
-    try {
-      remove(ref(this.db, `users/${userId}/cart/${plantId}`));
-    } catch (err) {
-      console.log(err);
-      this.router.navigate(['/error']);
-    }
+    Promise.all([
+      remove(ref(this.db, `users/${userId}/cart/${plantId}`)),
+      remove(ref(this.db, `plants/${plantId}/inCart/${userId}`))
+    ])
+      .catch((err) => {
+        console.log(err);
+        this.router.navigate(['/error']);
+      })
+
   }
 
   addQuantity(userId: string, plantId: string): void {
+
     const dbRef = ref(this.db);
     const url = `users/${userId}/cart/${plantId}/quantity`;
+
     get(child(dbRef, url)).then((snapshot) => {
       const quantity: number = snapshot.val();
       set(ref(this.db, url), quantity + 1)
-    }).catch((error) => {
-      console.log(error.message);
-      this.router.navigate(['/error']);
-    });
+    })
+      .catch((error) => {
+        console.log(error.message);
+        this.router.navigate(['/error']);
+      });
   }
 
   reduceQuantity(userId: string, plantId: string): void {
+
     const dbRef = ref(this.db);
     const url = `users/${userId}/cart/${plantId}/quantity`;
+
     get(child(dbRef, url)).then((snapshot) => {
       const quantity: number = snapshot.val();
       if (quantity > 1) {
         set(ref(this.db, url), quantity - 1)
       }
-    }).catch((error) => {
-      console.log(error.message);
-      this.router.navigate(['/error']);
-    });
+    })
+      .catch((error) => {
+        console.log(error.message);
+        this.router.navigate(['/error']);
+      });
   }
 
 }
