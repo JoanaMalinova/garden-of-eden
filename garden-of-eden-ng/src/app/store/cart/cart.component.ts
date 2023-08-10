@@ -16,6 +16,7 @@ export class CartComponent implements OnInit {
   plants: PlantInCart[] = [];
   cartIsEmpty: boolean = false;
   totalPrice: number = 0;
+  itemsQuantity: { id: string, quantity: number }[] = [];
 
   constructor(
     private router: Router,
@@ -38,7 +39,8 @@ export class CartComponent implements OnInit {
               if (plants) {
                 this.plants = Object.values(plants);
                 this.plants.forEach((plant) => {
-                  this.totalPrice += plant.quantity * plant.price
+                  this.totalPrice += plant.quantity * plant.price;
+                  this.itemsQuantity.push({ id: plant.id, quantity: plant.quantity });
                 })
               } else {
                 this.cartIsEmpty = true;
@@ -63,9 +65,27 @@ export class CartComponent implements OnInit {
 
   onPlus(plantId: string) {
     this.storeService.addQuantity(this.userId, plantId);
+
+    const currPlant = this.itemsQuantity.find(e => e.id === plantId);
+    this.itemsQuantity.filter(e => e.id !== plantId);
+    if (currPlant) {
+      currPlant.quantity += 1;
+      this.itemsQuantity.push(currPlant);
+    }
   }
 
   onMinus(plantId: string) {
     this.storeService.reduceQuantity(this.userId, plantId);
+
+    const currPlant = this.itemsQuantity.find(e => e.id === plantId);
+    this.itemsQuantity.filter(e => e.id !== plantId);
+    if (currPlant) {
+      currPlant.quantity -= 1;
+      this.itemsQuantity.push(currPlant);
+    }
+  }
+
+  getQuantity(plantId: string): number | undefined {
+    return this.itemsQuantity.find(e => e.id === plantId)?.quantity;
   }
 }
