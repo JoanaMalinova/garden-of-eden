@@ -15,6 +15,7 @@ export class FavouritesComponent implements OnInit {
   auth = getAuth();
   userId: string = "";
   noFavourites: boolean = false;
+  inCart: string[] = [];
 
   constructor(
     private storeService: StoreService,
@@ -40,7 +41,18 @@ export class FavouritesComponent implements OnInit {
                 this.router.navigate(['/error']);
               }
             }
-          )
+          );
+
+        this.storeService.getAllInCart(this.userId)
+          .subscribe({
+            next: (plantsInCart) => {
+              this.inCart = Object.keys(plantsInCart);
+            },
+            error: (e) => {
+              console.log(e.message);
+              this.router.navigate(['/error']);
+            }
+          });
       }
     });
   }
@@ -51,6 +63,12 @@ export class FavouritesComponent implements OnInit {
 
   onCartClick(plantId: string, name: string, imageUrl: string, price: number): void {
     this.storeService.addToCart(plantId, this.userId, name, imageUrl, price);
+
+    if (this.inCart.includes(plantId)) {
+      this.inCart = this.inCart.filter(e => e != plantId);
+    } else {
+      this.inCart.push(plantId);
+    }
   }
 
   onTrashClick(plantId: string,): void {
