@@ -9,6 +9,7 @@ import { PlantInCart } from 'src/types';
   templateUrl: './cart.component.html',
   styleUrls: ['./cart.component.css']
 })
+
 export class CartComponent implements OnInit {
 
   auth = getAuth();
@@ -16,7 +17,11 @@ export class CartComponent implements OnInit {
   plants: PlantInCart[] = [];
   cartIsEmpty: boolean = false;
   totalPrice: number = 0;
-  itemsQuantity: { id: string, quantity: number }[] = [];
+  itemsQuantity: {
+    id: string,
+    quantity: number
+    price: number
+  }[] = [];
 
   constructor(
     private router: Router,
@@ -40,7 +45,11 @@ export class CartComponent implements OnInit {
                 this.plants = Object.values(plants);
                 this.plants.forEach((plant) => {
                   this.totalPrice += plant.quantity * plant.price;
-                  this.itemsQuantity.push({ id: plant.id, quantity: plant.quantity });
+                  this.itemsQuantity.push({
+                    id: plant.id,
+                    quantity: plant.quantity,
+                    price: plant.price
+                  });
                 })
               } else {
                 this.cartIsEmpty = true;
@@ -72,6 +81,7 @@ export class CartComponent implements OnInit {
     if (currPlant) {
       currPlant.quantity += 1;
       this.itemsQuantity.push(currPlant);
+      this.totalPrice += currPlant.price;
     }
   }
 
@@ -83,10 +93,18 @@ export class CartComponent implements OnInit {
     if (currPlant && currPlant.quantity > 1) {
       currPlant.quantity -= 1;
       this.itemsQuantity.push(currPlant);
+      this.totalPrice -= currPlant.price;
     }
   }
 
   getQuantity(plantId: string): number | undefined {
     return this.itemsQuantity.find(e => e.id === plantId)?.quantity;
+  }
+
+  getTotalForPlant(plantId: string): number | void {
+    const current = this.itemsQuantity.find(e => e.id === plantId);
+    if (current) {
+      return current.quantity * current.price;
+    }
   }
 }
