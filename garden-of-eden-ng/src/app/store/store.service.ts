@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -13,7 +14,6 @@ import { Router } from '@angular/router';
 export class StoreService {
 
   db: Database;
-  exists: boolean = false;
 
   constructor(
     private app: FirebaseApp,
@@ -35,32 +35,31 @@ export class StoreService {
     const userFavouritesRef = ref(this.db, `users/${userId}/favourites/${plantId}`);
     const plantsLikesRef = ref(this.db, `plants/${plantId}/likes/${userId}`);
 
-    onValue(userFavouritesRef, (snapshot) => {
-      this.exists = snapshot.exists();
+    const unsubscribe = onValue(userFavouritesRef, (snapshot) => {
+      if (snapshot.exists()) {
+
+        this.deleteLiked(plantId, userId);
+
+      } else {
+
+        Promise.all([
+          set(userFavouritesRef, {
+            id: plantId,
+            name: plantName,
+            imageUrl,
+            price
+          }),
+          set(plantsLikesRef, {
+            id: userId,
+            email
+          })])
+          .catch(() => {
+            console.log('Favourites were not added successfully!');
+            this.router.navigate(['/error']);
+          })
+      }
+      unsubscribe();
     });
-
-    if (this.exists) {
-
-      this.deleteLiked(plantId, userId);
-
-    } else {
-
-      Promise.all([
-        set(userFavouritesRef, {
-          id: plantId,
-          name: plantName,
-          imageUrl,
-          price
-        }),
-        set(plantsLikesRef, {
-          id: userId,
-          email
-        })])
-        .catch(() => {
-          console.log('Favourites were not added successfully!');
-          this.router.navigate(['/error']);
-        })
-    }
   }
 
   addToCart(plantId: string, userId: string, plantName: string, imageUrl: string, price: number): void {
@@ -68,29 +67,31 @@ export class StoreService {
     const userCartRef = ref(this.db, `users/${userId}/cart/${plantId}`);
     const plantCartRef = ref(this.db, `plants/${plantId}/inCart/${userId}`);
 
-    onValue(userCartRef, (snapshot) => {
-      this.exists = snapshot.exists();
+    const unsubscribe = onValue(userCartRef, (snapshot) => {
+
+      if (snapshot.exists()) {
+
+        this.deleteFromCart(plantId, userId);
+
+      } else {
+
+        Promise.all([
+          set(userCartRef, {
+            id: plantId,
+            name: plantName,
+            imageUrl: imageUrl,
+            price: price,
+            quantity: 1
+          }),
+          set(plantCartRef, true)])
+          .catch((err) => {
+            console.log(err);
+            this.router.navigate(['/error']);
+          })
+      }
+
+      unsubscribe();
     });
-
-    if (!this.exists) {
-
-      Promise.all([
-        set(userCartRef, {
-          id: plantId,
-          name: plantName,
-          imageUrl: imageUrl,
-          price: price,
-          quantity: 1
-        }),
-        set(plantCartRef, true)])
-        .catch((err) => {
-          console.log(err);
-          this.router.navigate(['/error'])
-        })
-
-    } else {
-      this.deleteFromCart(plantId, userId)
-    }
   }
 
   getAllLiked(userId: string): Observable<LikedPlantObject> {

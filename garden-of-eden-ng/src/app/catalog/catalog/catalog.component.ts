@@ -59,7 +59,9 @@ export class CatalogComponent implements OnInit {
               console.log(e.message);
               this.router.navigate(['/error']);
             }
-          });
+
+          })
+
 
       } else {
         this.currUser = false;

@@ -30,6 +30,8 @@ export class DetailsComponent implements OnInit {
     water: '',
     imageUrl: '',
     id: '',
+    likes: null,
+    inCart: null
   }
   plantId: string = this.route.snapshot.params['plantId'];
 

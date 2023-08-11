@@ -13,8 +13,8 @@ export interface Plant {
     water: string;
     imageUrl: string;
     id: string;
-    likes?: { [key: string]: Like },
-    inCart?: { [key: string]: boolean }
+    likes: { [key: string]: Like } | null;
+    inCart: { [key: string]: boolean } | null;
 }
 
 export interface PlantObject {
@@ -62,7 +62,7 @@ export interface User {
     email: string;
     password: string;
     id: string;
-    favourites?: { [key: string]: LikedPlantObject };
-    cart?: { [key: string]: PlantInCartObject }
+    favourites: { [key: string]: LikedPlantObject } | null;
+    cart: { [key: string]: PlantInCartObject } | null;
 }
 

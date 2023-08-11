@@ -49,7 +49,9 @@ export class AuthService {
         set(ref(this.db, 'users/' + user.uid), {
           username: userData.username,
           email: userData.email,
-          userId: user.uid
+          userId: user.uid,
+          favourites: null,
+          cart: null
         });
       })
       .catch((err) => {
@@ -67,10 +69,6 @@ export class AuthService {
       this.router.navigate(['/error']);
     });
   }
-
-  // getUser() {
-
-  // }
 
   checkLogin(): boolean {
     onAuthStateChanged(this.auth, (user) => {
