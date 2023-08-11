@@ -1,6 +1,7 @@
 import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } from '@angular/router';
 import { AuthService } from './auth.service';
 import { Injectable, inject } from '@angular/core';
+import { getAuth, onAuthStateChanged } from '@angular/fire/auth';
 
 
 @Injectable({
@@ -9,6 +10,10 @@ import { Injectable, inject } from '@angular/core';
 
 class PermissionsService {
 
+    isAuthenticated: boolean = false;
+    auth = getAuth();
+    currUrl: string = "";
+
     constructor(
         private authService: AuthService,
         private router: Router
@@ -16,28 +21,33 @@ class PermissionsService {
 
     canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
 
-        const currPath = next.url[0].path;
-        console.log(currPath);
-        const isAuthenticated = this.authService.checkLogin();
-        console.log(isAuthenticated);
+        this.currUrl = state.url;
 
-        //!!!!!!!!!za6to samo za login kogato si loggnat  isAuthenticated e greshno ????
+        onAuthStateChanged(this.auth, ((user) => {
 
-        if (isAuthenticated) {
+            if (user) {
+                this.isAuthenticated = true;
+                if (this.currUrl === "/login" || this.currUrl === "/register") {
+                    this.router.navigate(['/home']);
+                }
+            } else {
+                this.isAuthenticated = false;
+                if (this.currUrl !== "/login" && this.currUrl !== "/register") {
+                    this.router.navigate(['/login']);
+                }
+            }
+        }));
 
-            if (currPath == "login" || currPath == "register") {
-                this.router.navigate(['/home']);
-
+        if (this.isAuthenticated) {
+            if (this.currUrl === "/login" || this.currUrl === "/register") {
                 return false;
             }
             return true;
         }
 
-        if (currPath == "login" || currPath == "register") {
+        if (this.currUrl === "/login" || this.currUrl === "/register") {
             return true;
         }
-        this.router.navigate(['/login']);
-
         return false;
     }
 }

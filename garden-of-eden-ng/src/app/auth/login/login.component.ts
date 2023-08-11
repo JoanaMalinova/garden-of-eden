@@ -3,7 +3,6 @@ import { NgForm } from "@angular/forms"
 import { LoginData } from 'src/types';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
-// import { FirebaseError } from '@angular/fire/app';
 
 @Component({
   selector: 'app-login',
