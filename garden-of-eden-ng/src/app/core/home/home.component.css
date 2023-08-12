@@ -32,11 +32,14 @@ div.heading-wrapper li {
 }
 
 div.heading-wrapper .catalog-anchor {
-    text-decoration: underline;
     font-weight: 900;
     font-size: 38px;
-
 }
+
+div.heading-wrapper .catalog-anchor:hover {
+    opacity: 0.8;
+}
+
 
 /* ---------------------MOST VIEWED----------------- */
 

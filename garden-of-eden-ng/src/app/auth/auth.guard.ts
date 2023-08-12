@@ -1,6 +1,5 @@
 import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } from '@angular/router';
 import { Injectable, inject } from '@angular/core';
-import { getAuth, onAuthStateChanged } from '@angular/fire/auth';
 
 @Injectable({
     providedIn: 'root'
@@ -8,45 +7,33 @@ import { getAuth, onAuthStateChanged } from '@angular/fire/auth';
 
 class PermissionsService {
 
-    isAuthenticated: boolean = false;
-    auth = getAuth();
-    currUrl: string = "";
-
     constructor(
         private router: Router,
-    ) {
-    }
+    ) { }
 
     canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
 
-        this.currUrl = state.url;
+        const currPath = state.url;
+        const currUser = localStorage.getItem("user");
+        console.log(currUser);
+        console.log(currPath);
 
-        onAuthStateChanged(this.auth, (user) => {
+        if (currUser) {
 
-            if (user) {
-                this.isAuthenticated = true;
-                if (this.currUrl === "/login" || this.currUrl === "/register") {
-                    this.router.navigate(['/home']);
-                }
-            } else {
-                this.isAuthenticated = false;
-                if (this.currUrl !== "/login" && this.currUrl !== "/register") {
-                    this.router.navigate(['/login']);
-                }
-            }
-        });
-
-        if (this.isAuthenticated) {
-            if (this.currUrl === "/login" || this.currUrl === "/register") {
+            if (currPath === "/login" || currPath === "/register") {
+                this.router.navigate(['/home']);
                 return false;
             }
             return true;
         }
 
-        if (this.currUrl === "/login" || this.currUrl === "/register") {
+        if (currPath === "/login" || currPath === "/register") {
             return true;
         }
+
+        this.router.navigate(['/login']);
         return false;
+
     }
 }
 

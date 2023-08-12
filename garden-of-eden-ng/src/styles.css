@@ -164,3 +164,11 @@ main {
 .uppercase {
     text-transform: uppercase;
 }
+
+i {
+    color: rgb(91, 88, 88);
+}
+
+i.fa-heart:hover {
+    color: salmon;
+}

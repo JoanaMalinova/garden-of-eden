@@ -4,7 +4,7 @@ header a {
 }
 
 header ul a:hover {
-    color: rgb(53, 54, 54, 0.7);
+    opacity: 0.7;
 }
 
 header {
@@ -16,6 +16,11 @@ header {
     background-color: white;
     z-index: 5;
     padding: 0 50px;
+    /* color: rgb(91, 88, 88); */
+}
+
+header i {
+    color: rgb(91, 88, 88);
 }
 
 /* 
@@ -53,9 +58,12 @@ header .search form {
     align-items: center;
 }
 
-header .search a {
-    display: inline-block;
-    margin-top: 8px;
+header .search i {
+    color: rgb(91, 88, 88);
+}
+
+header .search i:hover {
+    opacity: 0.7;
 }
 
 header .search input {
@@ -103,11 +111,15 @@ header .user {
 
 .welcome {
     font-size: 26px;
-    color: green
+    color: salmon
 }
 
 .ul-nav {
     display: flex;
     align-items: center;
     gap: 20px;
+}
+
+.fa-solid.fa-heart.salmon {
+    color: salmon;
 }

@@ -17,24 +17,24 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent },
   {
     path: 'login',
-    canActivate: [AuthGuard],
-    component: LoginComponent
+    component: LoginComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'register',
-    canActivate: [AuthGuard],
-    component: RegisterComponent
+    component: RegisterComponent,
+    canActivate: [AuthGuard]
   },
   { path: 'catalog', component: CatalogComponent },
   {
     path: 'favourites',
-    canActivate: [AuthGuard],
-    component: FavouritesComponent
+    component: FavouritesComponent,
+    canActivate: [AuthGuard]
   },
   {
     path: 'cart',
-    canActivate: [AuthGuard],
-    component: CartComponent
+    component: CartComponent,
+    canActivate: [AuthGuard]
   },
   { path: ':plantId/details', component: DetailsComponent },
   { path: 'logout', redirectTo: 'home' },

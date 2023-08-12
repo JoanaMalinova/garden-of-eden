@@ -13,7 +13,7 @@ export class AuthService {
   auth: Auth;
   db: Database;
   user: User | null;
-  // isAuthenticated: boolean = false;
+  isAuthenticated: boolean = false;
   errorMessage: string = "";
 
   constructor(
@@ -30,7 +30,7 @@ export class AuthService {
     signInWithEmailAndPassword(this.auth, userData.email, userData.password)
       .then(() => {
         console.log(`${this.auth.currentUser?.displayName} successfully logged in!`);
-        console.log(this.auth.currentUser);
+        localStorage.setItem('user', JSON.stringify(this.auth.currentUser));
       })
       .catch((err) => {
         console.log(err.message);
@@ -53,6 +53,7 @@ export class AuthService {
           favourites: null,
           cart: null
         });
+        localStorage.setItem('user', JSON.stringify(this.auth.currentUser));
       })
       .catch((err) => {
         console.error(err.message)
@@ -63,11 +64,21 @@ export class AuthService {
   logout(): void {
     signOut(this.auth).then(() => {
       console.log("Successfully signed out!");
-      console.log(this.auth.currentUser)
+      localStorage.removeItem('user');
     }).catch((error) => {
       console.error(error.message);
       this.router.navigate(['/error']);
     });
   }
 
+  checkLogin() {
+    onAuthStateChanged(this.auth, (user) => {
+      if (user) {
+        this.isAuthenticated = true;
+      } else {
+        this.isAuthenticated = false;
+      }
+    });
+    return this.isAuthenticated;
+  }
 }
