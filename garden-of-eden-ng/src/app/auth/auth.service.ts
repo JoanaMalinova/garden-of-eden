@@ -13,7 +13,7 @@ export class AuthService {
   auth: Auth;
   db: Database;
   user: User | null;
-  isAuthenticated: boolean = false;
+  // isAuthenticated: boolean = false;
   errorMessage: string = "";
 
   constructor(
@@ -68,17 +68,6 @@ export class AuthService {
       console.error(error.message);
       this.router.navigate(['/error']);
     });
-  }
-
-  checkLogin(): boolean {
-    onAuthStateChanged(this.auth, (user) => {
-      if (user) {
-        this.isAuthenticated = true;
-      } else {
-        this.isAuthenticated = false;
-      }
-    });
-    return this.isAuthenticated;
   }
 
 }

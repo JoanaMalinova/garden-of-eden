@@ -1,8 +1,6 @@
 import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot } from '@angular/router';
-import { AuthService } from './auth.service';
 import { Injectable, inject } from '@angular/core';
 import { getAuth, onAuthStateChanged } from '@angular/fire/auth';
-
 
 @Injectable({
     providedIn: 'root'
@@ -15,15 +13,15 @@ class PermissionsService {
     currUrl: string = "";
 
     constructor(
-        private authService: AuthService,
-        private router: Router
-    ) { }
+        private router: Router,
+    ) {
+    }
 
     canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
 
         this.currUrl = state.url;
 
-        onAuthStateChanged(this.auth, ((user) => {
+        onAuthStateChanged(this.auth, (user) => {
 
             if (user) {
                 this.isAuthenticated = true;
@@ -36,7 +34,7 @@ class PermissionsService {
                     this.router.navigate(['/login']);
                 }
             }
-        }));
+        });
 
         if (this.isAuthenticated) {
             if (this.currUrl === "/login" || this.currUrl === "/register") {

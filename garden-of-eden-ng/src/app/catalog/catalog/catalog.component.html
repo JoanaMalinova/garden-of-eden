@@ -1,4 +1,4 @@
-<div class="catalog-wrapper">
+<div class="catalog-wrapper" *ngIf="plants.length">
     <article class="catalog-card" *ngFor="let plant of plants">
         <div class="catalog-img-holder" (click)="redirectToDetails($event, plant.id)">
             <img src="{{plant.imageUrl}}" alt="plant-image" class="thumbnail">
@@ -14,4 +14,11 @@
                             class="fa-solid fa-basket-shopping"></i></button></span></p>
         </section>
     </article>
+</div>
+<div class=" no-matches" *ngIf="!plants.length">
+    <div class="parisienne">
+        <h1>Sorry!No Matches found...</h1>
+        <h2>Browse through our <span (click)="clearSearchWord()">catalog</span> ,maybe you'll find
+            something similar.</h2>
+    </div>
 </div>

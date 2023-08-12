@@ -13,7 +13,7 @@
     </div>
     <div class="navigation">
         <nav>
-            <ul class="ul-nav">
+            <ul class="ul-nav" (click)="clearSearchWord()">
                 <div class="guest" *ngIf="!currUser else user">
                     <li><a routerLink="/home">home</a></li>
                     <li><a routerLink="/login">login</a></li>

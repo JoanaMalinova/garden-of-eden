@@ -6,6 +6,7 @@ import { AppService } from 'src/app/app.service';
 import { getAuth, onAuthStateChanged } from '@angular/fire/auth';
 import { StoreService } from 'src/app/store/store.service';
 
+
 @Component({
   selector: 'app-catalog',
   templateUrl: './catalog.component.html',
@@ -23,12 +24,13 @@ export class CatalogComponent implements OnInit {
   email: string = "";
   liked: string[] = [];
   inCart: string[] = [];
+  unsubscriber: {}[] = [];
 
   constructor(
     private catalogService: CatalogService,
     private appService: AppService,
     private storeService: StoreService,
-    private router: Router
+    private router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -66,33 +68,33 @@ export class CatalogComponent implements OnInit {
       }
     });
 
-    this.appService.getSearchWord.subscribe(word => this.searchWord = word);
-    console.log(this.searchWord);
+    this.appService.getSearchWord.subscribe((word) => {
+      this.searchWord = word;
 
-
-    if (this.searchWord) {
-      this.catalogService.getSerachedFor(this.searchWord)
-        .subscribe({
-          next: (plants) => {
-            this.plants = Object.values(plants);
-          },
-          error: (e) => {
-            console.log(e.message);
-            this.router.navigate(['/error']);
-          }
-        })
-    } else {
-      this.catalogService.getAllPlants()
-        .subscribe({
-          next: (plants) => {
-            this.plants = Object.values(plants);
-          },
-          error: (e) => {
-            console.log(e.message);
-            this.router.navigate(['/error']);
-          }
-        })
-    }
+      if (this.searchWord) {
+        this.catalogService.getSerachedFor(this.searchWord)
+          .subscribe({
+            next: (plants) => {
+              this.plants = Object.values(plants);
+            },
+            error: (e) => {
+              console.log(e.message);
+              this.router.navigate(['/error']);
+            }
+          })
+      } else {
+        this.catalogService.getAllPlants()
+          .subscribe({
+            next: (plants) => {
+              this.plants = Object.values(plants);
+            },
+            error: (e) => {
+              console.log(e.message);
+              this.router.navigate(['/error']);
+            }
+          })
+      }
+    });
   }
 
   redirectToDetails(event: Event, id: string): void {
@@ -119,6 +121,11 @@ export class CatalogComponent implements OnInit {
     } else {
       this.inCart.push(plantId);
     }
+  }
+
+  clearSearchWord() {
+    this.searchWord = "";
+    this.appService.setSearchWord(this.searchWord);
   }
 }
 

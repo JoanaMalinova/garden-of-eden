@@ -9,4 +9,5 @@ import { AppService } from './app.service';
 })
 export class AppComponent {
   title = 'garden-of-eden-ng';
+
 }

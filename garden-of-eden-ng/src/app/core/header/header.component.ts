@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
   auth = getAuth();
   currUser: boolean = false;
   username: string | null = null;
+  searchWord: string = "";
 
   constructor(
     private appService: AppService,
@@ -25,9 +26,15 @@ export class HeaderComponent implements OnInit {
 
   onSubmit(form: NgForm): void {
     const data: { search: string } = form.value;
-    this.appService.setSearchWord(data.search);
+    this.searchWord = data.search;
+    this.appService.setSearchWord(this.searchWord);
     this.router.navigate(['/catalog']);
     form.reset();
+  }
+
+  clearSearchWord() {
+    this.searchWord = "";
+    this.appService.setSearchWord(this.searchWord);
   }
 
   onLogout(): void {
