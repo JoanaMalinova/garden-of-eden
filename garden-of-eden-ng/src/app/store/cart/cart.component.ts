@@ -71,6 +71,9 @@ export class CartComponent implements OnInit {
     if (curr) {
       this.totalPrice -= curr.quantity * curr.price
     }
+    if (!this.plants.length) {
+      this.cartIsEmpty = true;
+    }
   }
 
   onImageClick(id: string): void {
