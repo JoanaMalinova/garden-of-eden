@@ -11,6 +11,7 @@ import { DetailsComponent } from './catalog/details/details.component';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 import { AuthGuard } from './auth/auth.guard';
 
+
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
@@ -25,7 +26,10 @@ const routes: Routes = [
     component: RegisterComponent,
     canActivate: [AuthGuard]
   },
-  { path: 'catalog', component: CatalogComponent },
+  {
+    path: 'catalog',
+    component: CatalogComponent,
+  },
   {
     path: 'favourites',
     component: FavouritesComponent,

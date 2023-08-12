@@ -79,6 +79,6 @@ export class AuthService {
         this.isAuthenticated = false;
       }
     });
-    return this.isAuthenticated;
+    return this.user;
   }
 }
