@@ -25,7 +25,8 @@ export interface LikedPlant {
     id: string,
     name: string,
     imageUrl: string,
-    price: number
+    price: number,
+    likedOn: string
 }
 
 export interface LikedPlantObject {
@@ -38,6 +39,7 @@ export interface PlantInCart {
     imageUrl: string,
     price: number,
     quantity: number,
+    addedOn: string
 }
 
 export interface PlantInCartObject {

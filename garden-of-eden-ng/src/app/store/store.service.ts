@@ -34,6 +34,7 @@ export class StoreService {
 
     const userFavouritesRef = ref(this.db, `users/${userId}/favourites/${plantId}`);
     const plantsLikesRef = ref(this.db, `plants/${plantId}/likes/${userId}`);
+    const date = new Date();
 
     const unsubscribe = onValue(userFavouritesRef, (snapshot) => {
       if (snapshot.exists()) {
@@ -47,7 +48,8 @@ export class StoreService {
             id: plantId,
             name: plantName,
             imageUrl,
-            price
+            price,
+            likedOn: date.toLocaleString()
           }),
           set(plantsLikesRef, {
             id: userId,
@@ -66,6 +68,7 @@ export class StoreService {
 
     const userCartRef = ref(this.db, `users/${userId}/cart/${plantId}`);
     const plantCartRef = ref(this.db, `plants/${plantId}/inCart/${userId}`);
+    const date = new Date();
 
     const unsubscribe = onValue(userCartRef, (snapshot) => {
 
@@ -81,7 +84,8 @@ export class StoreService {
             name: plantName,
             imageUrl: imageUrl,
             price: price,
-            quantity: 1
+            quantity: 1,
+            addedOn: date.toLocaleString()
           }),
           set(plantCartRef, true)])
           .catch((err) => {

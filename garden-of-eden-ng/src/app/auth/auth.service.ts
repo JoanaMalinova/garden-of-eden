@@ -42,7 +42,6 @@ export class AuthService {
       })
       .catch((err) => {
         console.log(err.message);
-        console.log(err);
         if (err.message == "Firebase: Error (auth/invalid-email)." ||
           err.message == "Firebase: Error (auth/wrong-password).") {
           console.log('im in');

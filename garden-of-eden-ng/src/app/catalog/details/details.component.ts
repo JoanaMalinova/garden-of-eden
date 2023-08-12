@@ -47,6 +47,7 @@ export class DetailsComponent implements OnInit {
   ngOnInit(): void {
     onAuthStateChanged(this.auth, (user) => {
       if (user) {
+        console.log(user);
         this.currUser = true;
         this.userId = user?.uid;
         this.email = user?.email ? user?.email : "";
@@ -71,7 +72,6 @@ export class DetailsComponent implements OnInit {
   }
 
   onHeartClick(plantId: string, plantName: string, imageUrl: string, price: number): void {
-
     this.storeService.addToFavourites(plantId, plantName, imageUrl, price, this.userId, this.email);
     this.liked = !this.liked;
   }
