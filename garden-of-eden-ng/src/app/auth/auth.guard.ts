@@ -15,8 +15,6 @@ class PermissionsService {
 
         const currPath = state.url;
         const currUser = localStorage.getItem("user");
-        console.log(currUser);
-        console.log(currPath);
 
         if (currUser) {
 

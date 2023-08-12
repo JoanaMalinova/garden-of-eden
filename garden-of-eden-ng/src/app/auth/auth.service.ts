@@ -4,6 +4,8 @@ import { getAuth, createUserWithEmailAndPassword, updateProfile, signInWithEmail
 import { FirebaseApp } from '@angular/fire/app';
 import { Database, getDatabase, ref, set } from "firebase/database";
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +16,8 @@ export class AuthService {
   db: Database;
   user: User | null;
   isAuthenticated: boolean = false;
-  errorMessage: string = "";
+  errorMessage = new BehaviorSubject('');
+  getErrorMessage = this.errorMessage.asObservable();
 
   constructor(
     private router: Router,
@@ -25,21 +28,29 @@ export class AuthService {
     this.user = this.auth.currentUser;
   }
 
+  setErrorMessage(errorMessage: string) {
+    this.errorMessage.next(errorMessage);
+  }
+
   login(userData: LoginData): void {
 
     signInWithEmailAndPassword(this.auth, userData.email, userData.password)
       .then(() => {
         console.log(`${this.auth.currentUser?.displayName} successfully logged in!`);
         localStorage.setItem('user', JSON.stringify(this.auth.currentUser));
+        this.setErrorMessage("No errors");
       })
       .catch((err) => {
         console.log(err.message);
-        if (err.message == "Firebase: Error (auth/invalid-email).") {
-          this.errorMessage = "Invalid email or password!";
+        console.log(err);
+        if (err.message == "Firebase: Error (auth/invalid-email)." ||
+          err.message == "Firebase: Error (auth/wrong-password).") {
+          console.log('im in');
+          this.setErrorMessage("Invalid email or password!");
         } else {
           this.router.navigate(['/error']);
         }
-      })
+      });
   }
 
   register(userData: { email: string, password: string, username: string }): void {

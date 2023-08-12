@@ -23,13 +23,24 @@ export class LoginComponent {
 
     const data: LoginData = form.value;
 
-    this.authService.login(data);
+    const asyncOnSubmit = async () => {
 
-    this.errorMessage = this.authService.errorMessage;
+      await this.authService.login(data);
 
-    form.reset();
-    if (!this.errorMessage) {
-      this.router.navigate(["/catalog"]);
+      form.reset();
+
+      this.authService.getErrorMessage
+        .subscribe((errorMessage) => {
+          debugger
+          this.errorMessage = errorMessage;
+          console.log(this.errorMessage);
+          if (this.errorMessage === "No errors") {
+            this.router.navigate(["/catalog"])
+          }
+        });
     }
+
+    asyncOnSubmit();
   }
+
 }

@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { AppService } from 'src/app/app.service';
 import { getAuth, onAuthStateChanged } from '@angular/fire/auth';
 import { StoreService } from 'src/app/store/store.service';
-import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -32,11 +31,9 @@ export class CatalogComponent implements OnInit {
     private appService: AppService,
     private storeService: StoreService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
-    console.log(this.activatedRoute.data);
 
     onAuthStateChanged(this.auth, (user) => {
       if (user) {
