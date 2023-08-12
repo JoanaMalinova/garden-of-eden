@@ -26,7 +26,7 @@ export interface LikedPlant {
     name: string,
     imageUrl: string,
     price: number,
-    likedOn: string
+    likedOn: EpochTimeStamp
 }
 
 export interface LikedPlantObject {
@@ -39,7 +39,7 @@ export interface PlantInCart {
     imageUrl: string,
     price: number,
     quantity: number,
-    addedOn: string
+    addedOn: EpochTimeStamp
 }
 
 export interface PlantInCartObject {

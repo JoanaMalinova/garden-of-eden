@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Database, getDatabase, ref, set, onValue, remove, get, child } from 'firebase/database';
+import { Database, getDatabase, ref, set, onValue, remove, get, child, serverTimestamp } from 'firebase/database';
 import { FirebaseApp } from '@angular/fire/app';
 import { LikedPlantObject, PlantInCartObject } from 'src/types';
 import { Observable } from 'rxjs';
@@ -34,7 +34,7 @@ export class StoreService {
 
     const userFavouritesRef = ref(this.db, `users/${userId}/favourites/${plantId}`);
     const plantsLikesRef = ref(this.db, `plants/${plantId}/likes/${userId}`);
-    const date = new Date();
+    const date = serverTimestamp();
 
     const unsubscribe = onValue(userFavouritesRef, (snapshot) => {
       if (snapshot.exists()) {
@@ -49,7 +49,7 @@ export class StoreService {
             name: plantName,
             imageUrl,
             price,
-            likedOn: date.toLocaleString()
+            likedOn: date
           }),
           set(plantsLikesRef, {
             id: userId,
@@ -68,7 +68,8 @@ export class StoreService {
 
     const userCartRef = ref(this.db, `users/${userId}/cart/${plantId}`);
     const plantCartRef = ref(this.db, `plants/${plantId}/inCart/${userId}`);
-    const date = new Date();
+
+    const date = serverTimestamp();
 
     const unsubscribe = onValue(userCartRef, (snapshot) => {
 
@@ -85,7 +86,7 @@ export class StoreService {
             imageUrl: imageUrl,
             price: price,
             quantity: 1,
-            addedOn: date.toLocaleString()
+            addedOn: date
           }),
           set(plantCartRef, true)])
           .catch((err) => {
@@ -99,16 +100,18 @@ export class StoreService {
   }
 
   getAllLiked(userId: string): Observable<LikedPlantObject> {
+    const query = '?orderBy="likedOn"';
 
-    const url = `https://garden-of-eden-406ae-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}/favourites.json`;
+    const url = `https://garden-of-eden-406ae-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}/favourites.json${query}`;
 
     return this.http.get<LikedPlantObject>(url);
 
   }
 
   getAllInCart(userId: string): Observable<PlantInCartObject> {
+    const query = '?orderBy="addedOn"';
 
-    const url = `https://garden-of-eden-406ae-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}/cart.json`;
+    const url = `https://garden-of-eden-406ae-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}/cart.json${query}`;
 
     return this.http.get<PlantInCartObject>(url)
   }
