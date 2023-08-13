@@ -1,21 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { StoreService } from '../store.service';
 import { LikedPlant } from 'src/types';
-import { getAuth, onAuthStateChanged } from '@angular/fire/auth';
+import { Unsubscribe, getAuth, onAuthStateChanged } from '@angular/fire/auth';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-favourites',
   templateUrl: './favourites.component.html',
   styleUrls: ['./favourites.component.css']
 })
-export class FavouritesComponent implements OnInit {
+export class FavouritesComponent implements OnInit, OnDestroy {
 
   plants: LikedPlant[] = [];
   auth = getAuth();
   userId: string = "";
   noFavourites: boolean = false;
   inCart: string[] = [];
+  subscriptions: Subscription[] = [];
+  unsubscribes: Unsubscribe[] = [];
+
 
   constructor(
     private storeService: StoreService,
@@ -23,7 +27,7 @@ export class FavouritesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    onAuthStateChanged(this.auth, (user) => {
+    const unsubscribe = onAuthStateChanged(this.auth, (user) => {
       if (user) {
         this.userId = user.uid;
         this.storeService.getAllLiked(this.userId)
@@ -45,8 +49,9 @@ export class FavouritesComponent implements OnInit {
               }
             }
           );
+        this.unsubscribes.push(unsubscribe);
 
-        this.storeService.getAllInCart(this.userId)
+        const subscribe1 = this.storeService.getAllInCart(this.userId)
           .subscribe({
             next: (plantsInCart) => {
               this.inCart = Object.keys(plantsInCart);
@@ -56,6 +61,7 @@ export class FavouritesComponent implements OnInit {
               this.router.navigate(['/error']);
             }
           });
+        this.subscriptions.push(subscribe1)
       }
     });
   }
@@ -80,6 +86,11 @@ export class FavouritesComponent implements OnInit {
     if (!this.plants.length) {
       this.noFavourites = true;
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(e => e.unsubscribe);
+    this.unsubscribes.forEach(e => e());
   }
 
 }

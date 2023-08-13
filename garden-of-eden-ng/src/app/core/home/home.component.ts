@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ViewLatestService } from './view-latest.service';
 import { Plant } from 'src/types';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -10,9 +11,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./home.component.css'],
   providers: [ViewLatestService]
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
 
   latest: Plant[] = [];
+  subscriptions: Subscription[] = [];
 
   constructor(
     private viewLatestService: ViewLatestService,
@@ -21,7 +23,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.viewLatestService.getLatestPlants()
+    const subscribe1 = this.viewLatestService.getLatestPlants()
       .subscribe({
         next: (latest) => {
           this.latest = Object.values(latest);
@@ -31,10 +33,14 @@ export class HomeComponent implements OnInit {
           this.router.navigate(['/error']);
         }
       })
-
+    this.subscriptions.push(subscribe1);
   }
 
   redirectToDetails(event: Event, id: string): void {
     this.router.navigate([`/${id}/details`])
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(s => s.unsubscribe);
   }
 }

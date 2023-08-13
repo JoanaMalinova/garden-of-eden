@@ -1,17 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { NgForm } from "@angular/forms"
 import { LoginData } from 'src/types';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent {
+export class LoginComponent implements OnDestroy {
 
   errorMessage: string = "";
+  subscriptions: Subscription[] = [];
 
   constructor(
     private authService: AuthService,
@@ -29,7 +31,7 @@ export class LoginComponent {
 
       form.reset();
 
-      this.authService.getErrorMessage
+      const subscrption1 = this.authService.getErrorMessage
         .subscribe((errorMessage) => {
           debugger
           this.errorMessage = errorMessage;
@@ -38,9 +40,15 @@ export class LoginComponent {
             this.router.navigate(["/catalog"])
           }
         });
+
+      this.subscriptions.push(subscrption1);
     }
 
     asyncOnSubmit();
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(s => s.unsubscribe);
   }
 
 }

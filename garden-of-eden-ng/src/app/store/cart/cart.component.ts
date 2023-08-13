@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { getAuth, onAuthStateChanged } from '@angular/fire/auth';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Unsubscribe, getAuth, onAuthStateChanged } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { StoreService } from '../store.service';
 import { PlantInCart } from 'src/types';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-cart',
@@ -10,7 +11,7 @@ import { PlantInCart } from 'src/types';
   styleUrls: ['./cart.component.css']
 })
 
-export class CartComponent implements OnInit {
+export class CartComponent implements OnInit, OnDestroy {
 
   auth = getAuth();
   userId: string = '';
@@ -22,6 +23,8 @@ export class CartComponent implements OnInit {
     quantity: number
     price: number
   }[] = [];
+  subscriptions: Subscription[] = [];
+  unsubscribes: Unsubscribe[] = [];
 
   constructor(
     private router: Router,
@@ -35,10 +38,10 @@ export class CartComponent implements OnInit {
 
   ngOnInit(): void {
 
-    onAuthStateChanged(this.auth, ((user) => {
+    const unsubscribe = onAuthStateChanged(this.auth, ((user) => {
       if (user) {
         this.userId = user.uid;
-        this.storeService.getAllInCart(this.userId)
+        const subscribe1 = this.storeService.getAllInCart(this.userId)
           .subscribe({
             next: (plants) => {
               if (plants) {
@@ -63,8 +66,10 @@ export class CartComponent implements OnInit {
               this.router.navigate(['/error']);
             }
           })
+        this.subscriptions.push(subscribe1);
       }
     }));
+    this.unsubscribes.push(unsubscribe);
   }
 
   onTrashClick(id: string): void {
@@ -116,5 +121,10 @@ export class CartComponent implements OnInit {
     if (current) {
       return current.quantity * current.price;
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(e => e.unsubscribe);
+    this.unsubscribes.forEach(e => e());
   }
 }

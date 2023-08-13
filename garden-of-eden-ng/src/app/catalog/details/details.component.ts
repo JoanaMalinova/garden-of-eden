@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { DetailsService } from './details.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Plant } from 'src/types';
-import { getAuth, onAuthStateChanged } from '@angular/fire/auth';
+import { Unsubscribe, getAuth, onAuthStateChanged } from '@angular/fire/auth';
 import { StoreService } from 'src/app/store/store.service';
 import { Location } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-details',
@@ -12,7 +13,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./details.component.css'],
   providers: [DetailsService, StoreService]
 })
-export class DetailsComponent implements OnInit {
+export class DetailsComponent implements OnInit, OnDestroy {
 
   auth = getAuth();
   currUser: boolean = false;
@@ -34,6 +35,8 @@ export class DetailsComponent implements OnInit {
     inCart: null
   }
   plantId: string = this.route.snapshot.params['plantId'];
+  subscriptions: Subscription[] = [];
+  unsubscribes: Unsubscribe[] = [];
 
   constructor(
     private detailsService: DetailsService,
@@ -45,7 +48,7 @@ export class DetailsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    onAuthStateChanged(this.auth, (user) => {
+    const unsubscribe = onAuthStateChanged(this.auth, (user) => {
       if (user) {
         console.log(user);
         this.currUser = true;
@@ -57,7 +60,9 @@ export class DetailsComponent implements OnInit {
       }
     });
 
-    this.detailsService.getSinglePlant(this.plantId)
+    this.unsubscribes.push(unsubscribe);
+
+    const subscribe1 = this.detailsService.getSinglePlant(this.plantId)
       .subscribe({
         next: (plant) => {
           this.plant = plant;
@@ -68,7 +73,8 @@ export class DetailsComponent implements OnInit {
           console.log(e.message);
           this.router.navigate(['/error']);
         }
-      })
+      });
+    this.subscriptions.push(subscribe1);
   }
 
   onHeartClick(plantId: string, plantName: string, imageUrl: string, price: number): void {
@@ -84,6 +90,11 @@ export class DetailsComponent implements OnInit {
 
   onBackClick() {
     this.location.back()
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(e => e.unsubscribe);
+    this.unsubscribes.forEach(e => e());
   }
 
 }

@@ -74,7 +74,7 @@ export class CatalogComponent implements OnInit, OnDestroy {
       this.searchWord = word;
 
       if (this.searchWord) {
-        this.catalogService.getSerachedFor(this.searchWord)
+        const subscribe2 = this.catalogService.getSerachedFor(this.searchWord)
           .subscribe({
             next: (plants) => {
               this.plants = Object.values(plants);
@@ -84,8 +84,10 @@ export class CatalogComponent implements OnInit, OnDestroy {
               this.router.navigate(['/error']);
             }
           })
+
+        this.subscriptions.push(subscribe2);
       } else {
-        this.catalogService.getAllPlants()
+        const subscribe3 = this.catalogService.getAllPlants()
           .subscribe({
             next: (plants) => {
               this.plants = Object.values(plants);
@@ -95,9 +97,14 @@ export class CatalogComponent implements OnInit, OnDestroy {
               this.router.navigate(['/error']);
             }
           })
+
+        this.subscriptions.push(subscribe3)
       }
+
+
     });
     this.subscriptions.push(subscribe);
+
     this.unsubscribes.push(unsubscribe);
   }
 
