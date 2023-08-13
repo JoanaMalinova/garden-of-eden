@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CatalogService } from './catalog.service';
 import { Plant } from 'src/types';
 import { Router } from '@angular/router';
 import { AppService } from 'src/app/app.service';
-import { getAuth, onAuthStateChanged } from '@angular/fire/auth';
+import { Unsubscribe, getAuth, onAuthStateChanged } from '@angular/fire/auth';
 import { StoreService } from 'src/app/store/store.service';
-
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-catalog',
@@ -14,7 +14,7 @@ import { StoreService } from 'src/app/store/store.service';
   providers: [CatalogService]
 })
 
-export class CatalogComponent implements OnInit {
+export class CatalogComponent implements OnInit, OnDestroy {
 
   plants: Plant[] = [];
   auth = getAuth();
@@ -24,18 +24,20 @@ export class CatalogComponent implements OnInit {
   email: string = "";
   liked: string[] = [];
   inCart: string[] = [];
-  unsubscriber: {}[] = [];
+  subscriptions: Subscription[] = [];
+  unsubscribes: Unsubscribe[] = [];
 
   constructor(
     private catalogService: CatalogService,
     private appService: AppService,
     private storeService: StoreService,
-    private router: Router,
-  ) { }
+    private router: Router
+  ) {
+  }
 
   ngOnInit(): void {
 
-    onAuthStateChanged(this.auth, (user) => {
+    const unsubscribe = onAuthStateChanged(this.auth, (user) => {
       if (user) {
         this.currUser = true;
         this.userId = user?.uid;
@@ -68,7 +70,7 @@ export class CatalogComponent implements OnInit {
       }
     });
 
-    this.appService.getSearchWord.subscribe((word) => {
+    const subscribe = this.appService.getSearchWord.subscribe((word) => {
       this.searchWord = word;
 
       if (this.searchWord) {
@@ -95,6 +97,8 @@ export class CatalogComponent implements OnInit {
           })
       }
     });
+    this.subscriptions.push(subscribe);
+    this.unsubscribes.push(unsubscribe);
   }
 
   redirectToDetails(event: Event, id: string): void {
@@ -126,6 +130,11 @@ export class CatalogComponent implements OnInit {
   clearSearchWord() {
     this.searchWord = "";
     this.appService.setSearchWord(this.searchWord);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(e => e.unsubscribe);
+    this.unsubscribes.forEach(e => e());
   }
 }
 

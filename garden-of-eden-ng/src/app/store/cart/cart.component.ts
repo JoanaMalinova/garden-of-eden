@@ -43,6 +43,9 @@ export class CartComponent implements OnInit {
             next: (plants) => {
               if (plants) {
                 this.plants = Object.values(plants);
+                if (!this.plants.length) {
+                  this.cartIsEmpty = true;
+                }
                 this.plants.forEach((plant) => {
                   this.totalPrice += plant.quantity * plant.price;
                   this.itemsQuantity.push({

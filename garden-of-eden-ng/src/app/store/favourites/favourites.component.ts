@@ -32,6 +32,9 @@ export class FavouritesComponent implements OnInit {
               next: (plants) => {
                 if (plants) {
                   this.plants = Object.values(plants);
+                  if (!this.plants.length) {
+                    this.noFavourites = true;
+                  }
                 } else {
                   this.noFavourites = true;
                 }
