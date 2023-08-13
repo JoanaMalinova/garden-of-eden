@@ -100,7 +100,7 @@ export class StoreService {
   }
 
   getAllLiked(userId: string): Observable<LikedPlantObject> {
-    const query = '?orderBy="likedOn"';
+    const query = '?orderBy="likedOn"&startAt=1';
 
     const url = `https://garden-of-eden-406ae-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}/favourites.json${query}`;
 
@@ -109,7 +109,7 @@ export class StoreService {
   }
 
   getAllInCart(userId: string): Observable<PlantInCartObject> {
-    const query = '?orderBy="addedOn"';
+    const query = '?orderBy="addedOn"&startAt=1';
 
     const url = `https://garden-of-eden-406ae-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}/cart.json${query}`;
 
