@@ -44,7 +44,6 @@ export class AuthService {
         console.log(err.message);
         if (err.message == "Firebase: Error (auth/invalid-email)." ||
           err.message == "Firebase: Error (auth/wrong-password).") {
-          console.log('im in');
           this.setErrorMessage("Invalid email or password!");
         } else {
           this.router.navigate(['/error']);
@@ -64,10 +63,15 @@ export class AuthService {
           cart: null
         });
         localStorage.setItem('user', JSON.stringify(this.auth.currentUser));
+        this.setErrorMessage("No errors");
       })
       .catch((err) => {
-        console.error(err.message)
-        this.router.navigate(['/error']);
+        console.log(err.message)
+        if (err.message == "Firebase: Error (auth/email-already-in-use).") {
+          this.setErrorMessage("Email already in use!");
+        } else {
+          this.router.navigate(['/error']);
+        }
       });
   }
 

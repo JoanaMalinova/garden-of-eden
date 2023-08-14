@@ -33,9 +33,7 @@ export class LoginComponent implements OnDestroy {
 
       const subscrption1 = this.authService.getErrorMessage
         .subscribe((errorMessage) => {
-          debugger
           this.errorMessage = errorMessage;
-          console.log(this.errorMessage);
           if (this.errorMessage === "No errors") {
             this.router.navigate(["/catalog"])
           }

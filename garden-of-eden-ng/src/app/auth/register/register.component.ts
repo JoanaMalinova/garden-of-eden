@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { RegisterData } from 'src/types';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-register',
@@ -10,6 +11,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
+
+  errorMessage: string = "";
+  subscriptions: Subscription[] = [];
 
   constructor(
     private authService: AuthService,
@@ -19,19 +23,28 @@ export class RegisterComponent {
   onSubmit(form: NgForm): void {
 
     const data: RegisterData = form.value;
-    console.log(data);
-
     const { username, password, email } = data;
 
-    try {
-      this.authService.register({ username, password, email });
+    const asyncOnSubmit = async () => {
+
+      await this.authService.register({ username, password, email });
+
       form.reset();
-      this.router.navigate(['/catalog']);
 
-    } catch (error) {
-      console.error(error);
+      const subscrption = this.authService.getErrorMessage
+        .subscribe((errorMessage) => {
+          this.errorMessage = errorMessage;
+          if (this.errorMessage === "No errors") {
+            this.router.navigate(["/catalog"])
+          }
+        });
+
+      this.subscriptions.push(subscrption);
     }
-
+    asyncOnSubmit();
   }
 
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(s => s.unsubscribe);
+  }
 }

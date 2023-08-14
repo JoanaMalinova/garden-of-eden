@@ -65,6 +65,9 @@
                     </div>
                 </div>
             </div>
+            <div *ngIf="errorMessage" class="alert">
+                <p>{{errorMessage}}</p>
+            </div>
 
             <button type="submit" [disabled]="registerForm.invalid">Sign up</button>
 
