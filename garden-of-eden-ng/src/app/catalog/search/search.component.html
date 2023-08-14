@@ -3,3 +3,10 @@
         [isAuthenticated]="isAuthenticated" [plant]="plant" (heartClickEvent)="updateFavourites($event)"
         (cartClickEvent)="updateCart($event)" />
 </div>
+<div class=" no-matches" *ngIf="!plants.length">
+    <div class="parisienne">
+        <h1>Sorry!No Matches found...</h1>
+        <h2>Browse through our <span (click)="redirectToCatalog()">catalog</span> ,maybe you'll find
+            something similar.</h2>
+    </div>
+</div>

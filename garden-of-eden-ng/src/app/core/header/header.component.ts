@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { getAuth, onAuthStateChanged } from '@angular/fire/auth';
 import { NgForm } from "@angular/forms"
 import { Router } from '@angular/router';
-import { AppService } from 'src/app/app.service';
 import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
@@ -18,7 +17,6 @@ export class HeaderComponent implements OnInit {
   searchWord: string = "";
 
   constructor(
-    private appService: AppService,
     private router: Router,
     private authService: AuthService,
 
@@ -27,14 +25,8 @@ export class HeaderComponent implements OnInit {
   onSubmit(form: NgForm): void {
     const data: { search: string } = form.value;
     this.searchWord = data.search;
-    this.appService.setSearchWord(this.searchWord);
-    this.router.navigate(['/catalog']);
+    this.router.navigate([`/search/${this.searchWord}`]);
     form.reset();
-  }
-
-  clearSearchWord() {
-    this.searchWord = "";
-    this.appService.setSearchWord(this.searchWord);
   }
 
   onLogout(): void {

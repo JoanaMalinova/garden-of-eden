@@ -6,7 +6,7 @@
     color: black;
 }
 
-/* .no-matches {
+.no-matches {
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -40,4 +40,4 @@
 .no-matches h2 span:hover {
     opacity: 0.7;
     cursor: pointer;
-} */
+}

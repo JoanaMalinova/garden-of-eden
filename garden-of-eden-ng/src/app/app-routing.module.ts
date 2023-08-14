@@ -10,6 +10,7 @@ import { CartComponent } from './store/cart/cart.component';
 import { DetailsComponent } from './catalog/details/details.component';
 import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 import { AuthGuard } from './auth/auth.guard';
+import { SearchComponent } from './catalog/search/search.component';
 
 
 const routes: Routes = [
@@ -40,6 +41,7 @@ const routes: Routes = [
     component: CartComponent,
     canActivate: [AuthGuard]
   },
+  { path: 'search/:searchWord', component: SearchComponent },
   { path: ':plantId/details', component: DetailsComponent },
   { path: 'logout', redirectTo: 'home' },
   { path: 'error', component: PageNotFoundComponent },

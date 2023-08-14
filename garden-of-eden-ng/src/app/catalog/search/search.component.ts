@@ -1,40 +1,41 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CatalogService } from './catalog.service';
-import { Plant } from 'src/types';
-import { Router } from '@angular/router';
-import { Unsubscribe, getAuth, onAuthStateChanged } from '@angular/fire/auth';
-import { StoreService } from 'src/app/store/store.service';
+import { Component, OnInit } from '@angular/core';
+import { getAuth, Unsubscribe, onAuthStateChanged } from '@angular/fire/auth';
 import { Subscription } from 'rxjs';
+import { Plant } from 'src/types';
+import { CatalogService } from '../catalog/catalog.service';
+import { StoreService } from 'src/app/store/store.service';
+import { ActivatedRoute, Router } from '@angular/router';
+
 
 @Component({
-  selector: 'app-catalog',
-  templateUrl: './catalog.component.html',
-  styleUrls: ['./catalog.component.css'],
-  providers: [CatalogService]
+  selector: 'app-search',
+  templateUrl: './search.component.html',
+  styleUrls: ['./search.component.css']
 })
-
-export class CatalogComponent implements OnInit, OnDestroy {
+export class SearchComponent implements OnInit {
 
   plants: Plant[] = [];
   auth = getAuth();
   userId: string = "";
-  searchWord: string = "";
   isAuthenticated: boolean = false;
   email: string = "";
   liked: string[] = [];
   inCart: string[] = [];
   subscriptions: Subscription[] = [];
   unsubscribes: Unsubscribe[] = [];
+  searchWord: string = this.route.snapshot.params['searchWord'];
 
   constructor(
     private catalogService: CatalogService,
     private storeService: StoreService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
 
     const unsubscribe = onAuthStateChanged(this.auth, (user) => {
+
       if (user) {
         this.isAuthenticated = true;
         this.userId = user?.uid;
@@ -60,9 +61,9 @@ export class CatalogComponent implements OnInit, OnDestroy {
               console.log(e.message);
               this.router.navigate(['/error']);
             }
-          })
+          });
 
-        const subscribe = this.catalogService.getAllPlants()
+        const subscribe = this.catalogService.getSerachedFor(this.searchWord)
           .subscribe({
             next: (plants) => {
               this.plants = Object.values(plants);
@@ -71,8 +72,8 @@ export class CatalogComponent implements OnInit, OnDestroy {
               console.log(e.message);
               this.router.navigate(['/error']);
             }
-          });
-        this.subscriptions.push(subscribe)
+          })
+        this.subscriptions.push(subscribe);
 
       } else {
         this.isAuthenticated = false;
@@ -90,10 +91,12 @@ export class CatalogComponent implements OnInit, OnDestroy {
     this.inCart = inCart;
   }
 
+  redirectToCatalog() {
+    this.router.navigate(['/catalog']);
+  }
+
   ngOnDestroy(): void {
     this.subscriptions.forEach(e => e.unsubscribe);
     this.unsubscribes.forEach(e => e());
   }
 }
-
-

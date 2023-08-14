@@ -1,0 +1,15 @@
+<article class="catalog-card">
+    <div class="catalog-img-holder" (click)="redirectToDetails( plant.id)">
+        <img src="{{plant.imageUrl}}" alt="plant-image" class="thumbnail">
+    </div>
+    <section>
+        <span class="parisienne plant-name">{{plant.name}}</span>
+        <p class="plant-price">{{plant.price}} BGN<span *ngIf="isAuthenticated"><button class="like-btn"
+                    (click)="onHeartClick(plant.id, plant.name,plant.imageUrl,plant.price)"><i
+                        *ngIf="!liked.includes(plant.id)" class="fa-regular fa-heart"></i><i
+                        *ngIf="liked.includes(plant.id)" class="fa-solid fa-heart fa-lg salmon"></i></button><button
+                    (click)="onCartClick(plant.id, plant.name,plant.imageUrl,plant.price)" class="add-to-cart"
+                    [ngStyle]="inCart.includes(plant.id)? {'display' :'none'}: {}"><i
+                        class="fa-solid fa-basket-shopping"></i></button></span></p>
+    </section>
+</article>

@@ -31,7 +31,7 @@ export class LoginComponent implements OnDestroy {
 
       form.reset();
 
-      const subscrption1 = this.authService.getErrorMessage
+      const subscrption = this.authService.getErrorMessage
         .subscribe((errorMessage) => {
           this.errorMessage = errorMessage;
           if (this.errorMessage === "No errors") {
@@ -39,7 +39,7 @@ export class LoginComponent implements OnDestroy {
           }
         });
 
-      this.subscriptions.push(subscrption1);
+      this.subscriptions.push(subscrption);
     }
 
     asyncOnSubmit();
