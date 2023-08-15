@@ -1,6 +1,6 @@
 <div class="details-wrapper">
     <i class="fa-solid fa-chevron-left fa-xl" (click)="onBackClick()"></i>
-    <div class="details-img-holder">
+    <div class="details-img-holder" (click)="onImageClick()">
         <img src="{{plant.imageUrl}}" alt="pelargonium" class="thumbnail">
     </div>
     <div class="details-info-holder">
@@ -44,3 +44,4 @@
         </div>
     </div>
 </div>
+<app-modal [imageUrl]="plant.imageUrl" [modalStyle]="modalStyle" (changeModalStyleEvent)="changeModalStyle($event)" />

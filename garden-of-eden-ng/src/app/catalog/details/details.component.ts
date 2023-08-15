@@ -37,6 +37,7 @@ export class DetailsComponent implements OnInit, OnDestroy {
   plantId: string = this.route.snapshot.params['plantId'];
   subscriptions: Subscription[] = [];
   unsubscribes: Unsubscribe[] = [];
+  modalStyle: string = 'none';
 
   constructor(
     private detailsService: DetailsService,
@@ -50,7 +51,6 @@ export class DetailsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     const unsubscribe = onAuthStateChanged(this.auth, (user) => {
       if (user) {
-        console.log(user);
         this.currUser = true;
         this.userId = user?.uid;
         this.email = user?.email ? user?.email : "";
@@ -95,6 +95,14 @@ export class DetailsComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscriptions.forEach(e => e.unsubscribe);
     this.unsubscribes.forEach(e => e());
+  }
+
+  onImageClick() {
+    this.modalStyle = "block";
+  }
+
+  changeModalStyle(modalStyle: string) {
+    this.modalStyle = modalStyle;
   }
 
 }

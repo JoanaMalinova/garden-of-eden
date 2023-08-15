@@ -4,12 +4,14 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { RouterModule } from '@angular/router';
 import { LoaderComponent } from './loader/loader.component';
 import { CardComponent } from './card/card.component';
+import { ModalComponent } from './modal/modal.component';
 
 @NgModule({
   declarations: [
     PageNotFoundComponent,
     LoaderComponent,
     CardComponent,
+    ModalComponent,
   ],
   imports: [
     CommonModule,
@@ -18,7 +20,8 @@ import { CardComponent } from './card/card.component';
   exports: [
     PageNotFoundComponent,
     LoaderComponent,
-    CardComponent
+    CardComponent,
+    ModalComponent
   ]
 })
 export class SharedModule { }
