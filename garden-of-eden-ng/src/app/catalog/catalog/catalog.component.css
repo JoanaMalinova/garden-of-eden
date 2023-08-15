@@ -5,39 +5,3 @@
     gap: 25px;
     color: black;
 }
-
-/* .no-matches {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    width: 100%;
-    height: 80vh;
-    background: url("https://img.freepik.com/premium-photo/small-prickly-pear-cactus-with-eyes-brown-pot-white-background-copy-space_91130-529.jpg?w=2000");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position-y: bottom;
-    text-align: center;
-    padding-right: 14rem;
-}
-
-.no-matches h1 {
-    color: black;
-    font-size: 48px;
-    font-weight: 400;
-}
-
-.no-matches h2 {
-    color: black;
-    font-size: 32px;
-    font-weight: 400;
-}
-
-.no-matches h2 span {
-    text-decoration: underline;
-    font-size: 36px;
-}
-
-.no-matches h2 span:hover {
-    opacity: 0.7;
-    cursor: pointer;
-} */

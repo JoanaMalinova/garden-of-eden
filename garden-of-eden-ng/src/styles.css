@@ -172,3 +172,18 @@ i {
 i.fa-heart:hover {
     color: salmon;
 }
+
+.thumbnail {
+    top: -50px;
+    left: -35px;
+    display: block;
+    z-index: 999;
+    cursor: pointer;
+    transition-property: all;
+    transition-duration: 0.2s;
+    transition-timing-function: ease;
+}
+
+.thumbnail:hover {
+    transform: scale(1.2);
+}
