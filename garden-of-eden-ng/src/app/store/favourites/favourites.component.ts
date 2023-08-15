@@ -66,26 +66,13 @@ export class FavouritesComponent implements OnInit, OnDestroy {
     });
   }
 
-  redirectToDetails(event: Event, id: string): void {
-    this.router.navigate([`/${id}/details`]);
+  updateCart(inCart: string[]) {
+    this.inCart = inCart;
   }
 
-  onCartClick(plantId: string, name: string, imageUrl: string, price: number): void {
-    this.storeService.addToCart(plantId, this.userId, name, imageUrl, price);
-
-    if (this.inCart.includes(plantId)) {
-      this.inCart = this.inCart.filter(e => e != plantId);
-    } else {
-      this.inCart.push(plantId);
-    }
-  }
-
-  onTrashClick(plantId: string,): void {
-    this.storeService.deleteLiked(plantId, this.userId);
-    this.plants = this.plants.filter(e => e.id !== plantId);
-    if (!this.plants.length) {
-      this.noFavourites = true;
-    }
+  updateFavourites(param: { plants: LikedPlant[], noFavourites: boolean }) {
+    this.plants = param.plants;
+    this.noFavourites = param.noFavourites;
   }
 
   ngOnDestroy(): void {

@@ -26,7 +26,7 @@ export interface LikedPlant {
     name: string,
     imageUrl: string,
     price: number,
-    likedOn: EpochTimeStamp
+    likedOn?: EpochTimeStamp
 }
 
 export interface LikedPlantObject {

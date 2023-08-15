@@ -1,19 +1,8 @@
 <div class="like-wrapper">
     <h1 class="parisienne">Favourites</h1>
     <div class="catalog-wrapper" *ngIf="!noFavourites">
-        <article class="catalog-card" *ngFor="let plant of plants">
-            <div class="catalog-img-holder" (click)="redirectToDetails($event,plant.id)">
-                <img src="{{plant.imageUrl}}" alt="{{plant.name}}" class="thumbnail">
-            </div>
-            <section>
-                <span class="parisienne plant-name">{{plant.name}}</span>
-                <p class="plant-price">{{plant.price}} BGN<span><button
-                            (click)="onCartClick(plant.id, plant.name, plant.imageUrl, plant.price)"
-                            [ngStyle]="inCart.includes(plant.id)? {'display' :'none'}: {}"><i
-                                class="fa-solid fa-basket-shopping"></i></button><button
-                            (click)="onTrashClick(plant.id)"><i class="fa-solid fa-trash-can"></i></button></span></p>
-            </section>
-        </article>
+        <app-card *ngFor="let plant of plants" [inCart]="inCart" [plant]="plant" [userId]="userId" [plants]="plants"
+            (trashClickEvent)="updateFavourites($event)" (cartClickEvent)="updateCart($event)" />
     </div>
 
     <div class="p2-wrapper" *ngIf="noFavourites">
