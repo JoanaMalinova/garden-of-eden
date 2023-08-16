@@ -62,22 +62,23 @@ export class CatalogComponent implements OnInit, OnDestroy {
             }
           })
 
-        const subscribe = this.catalogService.getAllPlants()
-          .subscribe({
-            next: (plants) => {
-              this.plants = Object.values(plants);
-            },
-            error: (e) => {
-              console.log(e.message);
-              this.router.navigate(['/error']);
-            }
-          });
-        this.subscriptions.push(subscribe)
-
       } else {
         this.isAuthenticated = false;
       }
     });
+
+    const subscribe = this.catalogService.getAllPlants()
+      .subscribe({
+        next: (plants) => {
+          this.plants = Object.values(plants);
+        },
+        error: (e) => {
+          console.log(e.message);
+          this.router.navigate(['/error']);
+        }
+      });
+
+    this.subscriptions.push(subscribe)
 
     this.unsubscribes.push(unsubscribe);
   }

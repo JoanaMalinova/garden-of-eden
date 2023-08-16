@@ -16,19 +16,11 @@ header {
     background-color: white;
     z-index: 5;
     padding: 0 50px;
-    /* color: rgb(91, 88, 88); */
 }
 
 header i {
     color: rgb(91, 88, 88);
 }
-
-/* 
-header .navigation ul {
-    display: flex;
-    align-items: center;
-    gap: 50px;
-} */
 
 header .navigation .heart {
     padding-top: 20px;
@@ -122,4 +114,79 @@ header .user {
 
 .fa-solid.fa-heart.salmon {
     color: salmon;
+}
+
+@media screen and (max-width: 1620px) {
+
+    .logo p a {
+        font-size: 40px;
+    }
+
+    header .search input {
+        font-size: 18px;
+        width: 15vw;
+    }
+
+}
+
+@media screen and (max-width: 1420px) {
+
+    header a {
+        font-size: 30px;
+    }
+
+    .search .fa-2xl {
+        font-size: 24px;
+    }
+
+    .welcome {
+        font-size: 20px;
+    }
+
+    header .guest,
+    header .user {
+        gap: 30px;
+    }
+
+    header .search input {
+        font-size: 16px;
+        width: 15vw;
+    }
+}
+
+@media screen and (max-width: 1160px) {
+
+    header {
+        padding: 0;
+    }
+
+    /* .logo p a {
+        font-size: 35px;
+    } */
+
+    header .search form {
+        gap: 5px;
+    }
+
+    header .search input {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 1030px) {
+    header {
+        gap: 10px;
+    }
+
+    header h2 {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 788px) {
+
+    .logo p a {
+        font-size: 28px;
+    }
+
 }

@@ -117,3 +117,26 @@
     opacity: 0.6;
     cursor: pointer;
 }
+
+@media screen and (max-width: 1601px) {
+    .details-wrapper {
+        padding: 40px 100px;
+        gap: 20px;
+    }
+}
+
+@media screen and (max-width: 1025px) {
+    .details-wrapper {
+        flex-direction: column;
+        height: fit-content;
+    }
+
+    .details-info-holder {
+        width: 70vw;
+        gap: 4vh;
+    }
+
+    .details-info-holder.specs {
+        gap: 2vh;
+    }
+}

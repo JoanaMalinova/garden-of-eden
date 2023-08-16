@@ -32,7 +32,6 @@ export class CartComponent implements OnInit, OnDestroy {
   ) { }
 
   onContinueClick(): void {
-    console.log('Im in');
     this.router.navigate(['/catalog']);
   }
 

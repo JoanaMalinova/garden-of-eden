@@ -68,8 +68,9 @@ table td {
 }
 
 .cart-wrapper hr {
-    height: 1px;
-    background-color: black;
+    height: 2px;
+    border: none;
+    background-color: white;
     width: 60%;
 }
 
