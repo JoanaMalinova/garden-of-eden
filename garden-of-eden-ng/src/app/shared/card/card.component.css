@@ -1,7 +1,8 @@
 .catalog-card {
     display: flex;
     flex-direction: column;
-    height: 400px;
+    height: 100%;
+    width: 100%;
 }
 
 .catalog-card section {
@@ -12,15 +13,20 @@
 }
 
 .catalog-img-holder {
-    height: 68%;
+    height: 64%;
+    width: 100%;
 }
 
 .catalog-img-holder img {
-    object-fit: contain;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
 }
 
 .plant-name {
     font-size: 32px;
+    z-index: 1;
 }
 
 .plant-price {
@@ -50,4 +56,53 @@
 
 .salmon {
     color: salmon;
+}
+
+@media screen and (max-width: 1650px) {
+    .plant-name {
+        font-size: 30px;
+    }
+}
+
+@media screen and (max-width: 1500px) {
+    .plant-name {
+        font-size: 26px;
+    }
+
+    .plant-price {
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .catalog-img-holder {
+        height: 72%;
+        width: 100%;
+    }
+
+    .catalog-card section {
+        height: 18%;
+    }
+}
+
+@media screen and (max-width: 930px) {
+    .catalog-img-holder {
+        height: 70%;
+        width: 100%;
+    }
+
+    .catalog-card section {
+        height: 26%;
+    }
+}
+
+@media screen and (max-width: 780px) {
+    .catalog-img-holder {
+        height: 80%;
+        width: 100%;
+    }
+
+    .catalog-card section {
+        height: 20%;
+    }
 }
