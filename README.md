@@ -1,5 +1,3 @@
-App is partially resposive, still not finished.
-
 <h1>Garden of Eden </h1>
 (Deployed with Firebase - https://garden-of-eden-406ae.web.app))
 <h2>Online plant store </h2>
@@ -62,6 +60,7 @@ Login and register page use build in angular form validation.
 <h3>4. In development:</h3>
 App is partially responsive, I plan on fixing the issue in the near future.
 <h3>5. Conclusion:</h3> 
+It was really challenging for me to work on an Angular and typescript project. At first I faced a problem at every step, but then when I got used to working with the limtiations that come with a framwork and typescript, I learned to like how suggestive the code becomes. I will definitely use TypeScript in a future project to achieve a better understanding of ot. 
 
 
 
